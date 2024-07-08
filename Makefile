@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rmei <marvin@42.fr>                        +#+  +:+       +#+         #
+#    By: rmei <rmei@student.42berlin.de>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/25 20:57:11 by rmei              #+#    #+#              #
-#    Updated: 2024/07/03 10:39:16 by rmei             ###   ########.fr        #
+#    Updated: 2024/07/08 16:25:50 by rmei             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #### -- VARIABLES -- ####
-SRC = main.c wireframe.c utils.c
+SRC = draw.c main.c tables.c utils.c
 OBJS = $(SRC:%.c=%.o)
 NAME = fdf
 
@@ -38,7 +38,7 @@ clean:
 fclean: 
 	make fclean -sC libft
 	make fclean -sC minilibx
-	rm -r $(OBJS) $(NAME)
+	rm -f $(OBJS) $(NAME)
 
 re: fclean all
 

@@ -16,6 +16,6 @@ clean:
 	@rm -f $(OBJS)
 	@rm -f mlx_app
 fclean: clean
-	@rm -r $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
