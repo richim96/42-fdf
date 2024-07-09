@@ -6,13 +6,13 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 14:14:12 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/08 16:15:36 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/09 13:56:12 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	ft_mlx_pixel_put(t_img img, int x, int y, unsigned int pixel_color)
+static void	ft_mlx_pixel_draw(t_img img, int x, int y, unsigned int pixel_color)
 {
 	int		bytes_per_pixel;
 	int		pixel_offset;
@@ -37,48 +37,53 @@ static void	ft_mlx_img_draw(t_img img, int fd, char *map_row)
 	pixel_color = 0xFFFFFF;
 	while (map_row)
 	{
-		while (x < img.img_width)
+		while (x < img.width)
 		{
-			ft_mlx_pixel_put(img, x, y, pixel_color);
-			ft_mlx_pixel_put(img, x++, img.img_height - 1, pixel_color);
+			ft_mlx_pixel_draw(img, x, y, pixel_color);
+			ft_mlx_pixel_draw(img, x++, img.height - 1, pixel_color);
 		}
-		while (y < img.img_height)
+		while (y < img.height)
 		{
-			ft_mlx_pixel_put(img, x, y, pixel_color);
-			ft_mlx_pixel_put(img, img.img_width - 1, y++, pixel_color);
+			ft_mlx_pixel_draw(img, x, y, pixel_color);
+			ft_mlx_pixel_draw(img, img.width - 1, y++, pixel_color);
 		}
 		free(map_row);
 		map_row = ft_get_next_line(fd);
 		break ;
 	}
-	//free(map_row);
+	free(map_row);
+}
+
+static void	ft_mlx_events_init(t_screen *screen)
+{
+	mlx_hook(screen->win_ptr, ON_DESTROY, MLX_MASK, ft_mlx_kill, screen);
+	mlx_key_hook(screen->win_ptr, ft_keyhook, screen);
+	//mlx_mouse_hook(screen->win_ptr, ft_mousehook, screen);
 }
 
 void	ft_map_show(char *map_path)
 {
-	int		fd;
-	char	*map_row;
-	void	*mlx_ptr;
-	void	*win_ptr;
-	t_img	img;
+	int			fd;
+	char		*map_row;
+	t_screen	screen;
+	t_img		img;
 
-	mlx_ptr = mlx_init();
-	img.img_width = ft_cols_count(map_path) * 10;
-	img.img_height = ft_rows_count(map_path) * 10;
-	img.img_ptr = mlx_new_image(mlx_ptr, img.img_width, img.img_height);
+	screen.mlx_ptr = mlx_init();
+	screen.win_ptr = mlx_new_window(
+			screen.mlx_ptr, WIN_WIDTH, WIN_HEIGHT, map_path);
+	screen.img = &img;
+	img.width = WIN_WIDTH * 0.66;
+	img.height = WIN_HEIGHT * 0.66;
+	img.img_ptr = mlx_new_image(screen.mlx_ptr, img.width, img.height);
 	img.img_addr = mlx_get_data_addr(
 			img.img_ptr, &img.bits_per_pixel, &img.size_line, &img.endian);
 	fd = open(map_path, O_RDONLY);
 	map_row = ft_get_next_line(fd);
 	ft_mlx_img_draw(img, fd, map_row);
 	close(fd);
-	win_ptr = mlx_new_window(
-		mlx_ptr, img.img_width / 0.66, img.img_height / 0.66 , map_path);
 	mlx_put_image_to_window(
-		mlx_ptr,
-		win_ptr,
-		img.img_ptr,
-		img.img_width / 0.66 * 0.16,
-		img.img_height / 0.66 * 0.16);
-	mlx_loop(mlx_ptr);
+		screen.mlx_ptr, screen.win_ptr,
+		img.img_ptr, img.width * 0.25, img.height * 0.35);
+	ft_mlx_events_init(&screen);
+	mlx_loop(screen.mlx_ptr);
 }
