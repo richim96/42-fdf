@@ -6,11 +6,14 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:09:21 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/09 13:45:52 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/10 14:38:45 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+#define X11LINUX_ESC 65307
+#define X11MACOS_ESC 53
 
 int	ft_mlx_kill(t_screen *screen)
 {
@@ -21,7 +24,7 @@ int	ft_mlx_kill(t_screen *screen)
 
 int	ft_keyhook(int key, t_screen *screen)
 {
-	if (key == 65307)
+	if (key == X11LINUX_ESC || key == X11MACOS_ESC)
 		ft_mlx_kill(screen);
 	return (0);
 }
