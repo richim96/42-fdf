@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:27:12 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/09 14:28:58 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/10 14:35:33 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	ft_file_is_valid(char *map_path)
 	char	*error_msg;
 
 	ext = ".fdf";
-	error_msg = "[ERROR] : Invalid file type - extension must be .fdf\n";
+	error_msg = "[ERROR]: Invalid file type - extension must be .fdf\n";
 	while (*map_path && *map_path != '.')
 		map_path++;
 	while (*map_path == *ext && *map_path && *ext)
@@ -41,7 +41,7 @@ static int	ft_map_is_valid(char *map_path)
 
 	fd = open(map_path, O_RDONLY);
 	line = ft_get_next_line(fd);
-	error_msg = "[ERROR] : No map data\n";
+	error_msg = "[ERROR]: No map data\n";
 	if (!line)
 	{
 		if (fd == -1)
@@ -60,7 +60,7 @@ int	main(int argc, char **argv)
 	char	*map_path;
 	char	*error_msg;
 
-	error_msg = "[ERROR] : Invalid map argument\n";
+	error_msg = "[ERROR]: Invalid map argument\n";
 	if (argc != 2)
 	{
 		write(2, error_msg, ft_strlen(error_msg));

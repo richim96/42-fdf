@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:24:40 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/09 16:41:40 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/10 14:31:19 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ typedef struct s_screen
 
 typedef struct s_matrix
 {
-	int	x[];
-	int	y[];
-	int	z[];
+	int	*x;
+	int	*y;
+	int	*z;
 }	t_matrix;
 
 /* FUNCTIONS  */

@@ -6,12 +6,12 @@
 #    By: rmei <rmei@student.42berlin.de>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/25 20:57:11 by rmei              #+#    #+#              #
-#    Updated: 2024/07/09 14:31:00 by rmei             ###   ########.fr        #
+#    Updated: 2024/07/10 14:32:15 by rmei             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #### -- VARIABLES -- ####
-SRC = draw.c hooks.c main.c tables.c utils.c
+SRC = draw.c hooks.c main.c matrix.c utils.c
 OBJS = $(SRC:%.c=%.o)
 NAME = fdf
 
