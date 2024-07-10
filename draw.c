@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 14:14:12 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/10 12:27:13 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/09 13:56:12 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static void	ft_mlx_img_draw(t_img img, int fd, char *map_row)
 	x = 0;
 	y = 0;
 	z = ft_atoi(map_row);
-	printf("%i\n", z);
 	pixel_color = 0xFFFFFF;
 	while (map_row)
 	{
