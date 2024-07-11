@@ -6,17 +6,17 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:11:39 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/10 14:34:26 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/10 14:41:55 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-//static int	ft_ztoi(char *row);
+static int	ft_ztoi(char *row);
 
-//static t_matrix	*ft_matrix_fill(int fd, t_matrix *matrix, )
+static t_matrix	*ft_matrix_fill(int fd, t_matrix *matrix, )
 
-/*t_matrix	*ft_matrix_extract(int fd)
+t_matrix	*ft_matrix_extract(int fd)
 {
 	t_matrix	*matrix;
 	char		**vertex;
@@ -64,6 +64,6 @@
 			matrix->z[rows] = ft_ztoi
 	}
 	return (matrix);
-}*/
+}
 
 t_matrix	*ft_matrix_rotate(t_matrix *matrix, int theta);
