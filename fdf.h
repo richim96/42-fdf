@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:24:40 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/10 14:31:19 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/15 13:01:45 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,8 @@
 # include <stdio.h>
 
 # include "libft.h"
+# include "macros.h"
 # include "mlx.h"
-
-/* MACROS */
-// - X11 screen
-# define WIN_WIDTH 720
-# define WIN_HEIGHT 480
-// - X11 events
-# define ON_DESTROY 17
-# define MLX_MASK 0
 
 /* STRUCTURES */
 typedef struct s_img
@@ -46,18 +39,17 @@ typedef struct s_screen
 	t_img	*img;
 }	t_screen;
 
-typedef struct s_matrix
-{
-	int	*x;
-	int	*y;
-	int	*z;
-}	t_matrix;
-
 /* FUNCTIONS  */
 // - Main
 void	ft_map_show(char *map_path);
+
+// - Matrix
+t_list	**ft_matrix_make(char *map_path);
+void	ft_matrix_rotate(t_list **matrix, int theta);
+
 // - Utils
 int		ft_isnumstr(char *s);
+
 // - Hooks
 int		ft_mlx_kill(t_screen *screen);
 int		ft_keyhook(int key, t_screen *screen);

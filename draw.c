@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 14:14:12 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/10 14:31:57 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/12 12:58:52 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,20 @@ static void	ft_mlx_pixel_draw(t_img img, int x, int y, unsigned int pixel_color)
 	*(unsigned int *)coordinate = pixel_color;
 }
 
-static void	ft_mlx_img_draw(t_img img, int fd, char *map_row)
+static void	ft_mlx_img_draw(t_img img, char *map_path)
 {
 	int	x;
 	int	y;
-	int	z;
 	int	pixel_color;
+	char	*map_row;
+	int	fd;
+	//int	**matrix;	
 
+	//matrix = ft_matrix_make(map_path);
+	fd = open(map_path, O_RDONLY);
+	map_row = ft_get_next_line(fd);
 	x = 0;
 	y = 0;
-	z = ft_atoi(map_row);
-	ft_printf("%i\n", z);
 	pixel_color = 0xFFFFFF;
 	while (map_row)
 	{
@@ -64,8 +67,6 @@ static void	ft_mlx_events_init(t_screen *screen)
 
 void	ft_map_show(char *map_path)
 {
-	int			fd;
-	char		*map_row;
 	t_screen	screen;
 	t_img		img;
 
@@ -78,10 +79,7 @@ void	ft_map_show(char *map_path)
 	img.img_ptr = mlx_new_image(screen.mlx_ptr, img.width, img.height);
 	img.img_addr = mlx_get_data_addr(
 			img.img_ptr, &img.bits_per_pixel, &img.size_line, &img.endian);
-	fd = open(map_path, O_RDONLY);
-	map_row = ft_get_next_line(fd);
-	ft_mlx_img_draw(img, fd, map_row);
-	close(fd);
+	ft_mlx_img_draw(img, map_path);
 	mlx_put_image_to_window(
 		screen.mlx_ptr, screen.win_ptr,
 		img.img_ptr, img.width * 0.25, img.height * 0.35);

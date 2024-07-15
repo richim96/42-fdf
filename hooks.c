@@ -6,14 +6,11 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:09:21 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/10 14:38:45 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/12 12:22:39 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-#define X11LINUX_ESC 65307
-#define X11MACOS_ESC 53
 
 int	ft_mlx_kill(t_screen *screen)
 {
