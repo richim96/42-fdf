@@ -6,11 +6,17 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 14:14:12 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/16 12:34:54 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/16 15:38:46 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+static void	ft_mlx_events_init(t_screen *screen)
+{
+	mlx_hook(screen->win_ptr, ON_DESTROY, MLX_MASK, ft_mlx_kill, screen);
+	mlx_key_hook(screen->win_ptr, ft_keyhook, screen);
+}
 
 static void	ft_mlx_pixel_draw(t_img img, int x, int y, unsigned int pixel_color)
 {
@@ -32,22 +38,14 @@ static void	ft_mlx_img_draw(t_img img, char *map_path)
 	int		pixel_color;
 
 	matrix = ft_matrix_make(map_path);
-	node = *matrix;
 	pixel_color = 0xFFFFFF;
-	while (node)
+	while (*matrix)
 	{
+		node = *matrix;
 		content = node->content;
 		ft_mlx_pixel_draw(img, content[0], content[1], pixel_color);
-		node = node->next;
+		*matrix = node->next;
 	}
-	ft_lstclear(matrix, free);
-}
-
-static void	ft_mlx_events_init(t_screen *screen)
-{
-	mlx_hook(screen->win_ptr, ON_DESTROY, MLX_MASK, ft_mlx_kill, screen);
-	mlx_key_hook(screen->win_ptr, ft_keyhook, screen);
-	//mlx_mouse_hook(screen->win_ptr, ft_mousehook, screen);
 }
 
 void	ft_map_show(char *map_path)
