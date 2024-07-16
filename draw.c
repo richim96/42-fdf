@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 14:14:12 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/12 12:58:52 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/16 12:34:54 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,36 +26,21 @@ static void	ft_mlx_pixel_draw(t_img img, int x, int y, unsigned int pixel_color)
 
 static void	ft_mlx_img_draw(t_img img, char *map_path)
 {
-	int	x;
-	int	y;
-	int	pixel_color;
-	char	*map_row;
-	int	fd;
-	//int	**matrix;	
+	t_list	**matrix;
+	t_list	*node;
+	int		*content;
+	int		pixel_color;
 
-	//matrix = ft_matrix_make(map_path);
-	fd = open(map_path, O_RDONLY);
-	map_row = ft_get_next_line(fd);
-	x = 0;
-	y = 0;
+	matrix = ft_matrix_make(map_path);
+	node = *matrix;
 	pixel_color = 0xFFFFFF;
-	while (map_row)
+	while (node)
 	{
-		while (x < img.width)
-		{
-			ft_mlx_pixel_draw(img, x, y, pixel_color);
-			ft_mlx_pixel_draw(img, x++, img.height - 1, pixel_color);
-		}
-		while (y < img.height)
-		{
-			ft_mlx_pixel_draw(img, x, y, pixel_color);
-			ft_mlx_pixel_draw(img, img.width - 1, y++, pixel_color);
-		}
-		free(map_row);
-		map_row = ft_get_next_line(fd);
-		break ;
+		content = node->content;
+		ft_mlx_pixel_draw(img, content[0], content[1], pixel_color);
+		node = node->next;
 	}
-	free(map_row);
+	ft_lstclear(matrix, free);
 }
 
 static void	ft_mlx_events_init(t_screen *screen)
