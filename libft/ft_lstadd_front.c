@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 20:25:43 by rmei              #+#    #+#             */
-/*   Updated: 2024/05/05 13:33:27 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/17 18:28:07 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 /* Adds a new node to the beginning of a singly-linked list */
-void	ft_lstadd_front(t_list **lst, t_list *new)
+t_list	*ft_lstadd_front(t_list *head, t_list *new)
 {
-	new->next = *lst;
-	*lst = new;
+	new->next = head;
+	return (new);
 }
