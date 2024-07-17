@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:24:40 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/16 15:23:47 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/17 17:21:31 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_screen
 	void	*mlx_ptr;
 	void	*win_ptr;
 	t_img	*img;
+	t_list	*matrix;
 }	t_screen;
 
 /* FUNCTIONS  */
@@ -44,8 +45,8 @@ typedef struct s_screen
 void	ft_map_show(char *map_path);
 
 // - Matrix
-t_list	**ft_matrix_make(char *map_path);
-void	ft_matrix_rotate(t_list **matrix, int theta);
+t_list	*ft_matrix_make(char *map_path);
+void	ft_matrix_rotate(t_list *matrix, int theta);
 
 // - Utils
 int		ft_isnumstr(char *s);

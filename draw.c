@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 14:14:12 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/17 14:02:28 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/17 17:22:46 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,17 @@ static void	ft_mlx_pixel_draw(t_img img, int x, int y, unsigned int pixel_color)
 	*(unsigned int *)coordinate = pixel_color;
 }
 
-static void	ft_mlx_img_draw(t_img img, char *map_path)
+static void	ft_mlx_img_draw(t_list *matrix, t_img img)
 {
-	t_list	**matrix;
 	t_list	*node;
 	int		*content;
 
-	matrix = ft_matrix_make(map_path);
-	while (*matrix)
+	node = matrix;
+	while (node)
 	{
-		node = *matrix;
 		content = node->content;
 		ft_mlx_pixel_draw(img, content[0], content[1], BASE_COLOR);
-		*matrix = node->next;
+		node = node->next;
 	}
 }
 
@@ -54,13 +52,14 @@ void	ft_map_show(char *map_path)
 	screen.mlx_ptr = mlx_init();
 	screen.win_ptr = mlx_new_window(
 			screen.mlx_ptr, WIN_WIDTH, WIN_HEIGHT, map_path);
+	screen.matrix = ft_matrix_make(map_path);
 	screen.img = &img;
 	img.width = WIN_WIDTH * IMG_SIZE_COEFF;
 	img.height = WIN_HEIGHT * IMG_SIZE_COEFF;
 	img.img_ptr = mlx_new_image(screen.mlx_ptr, img.width, img.height);
 	img.img_addr = mlx_get_data_addr(
 			img.img_ptr, &img.bits_per_pixel, &img.size_line, &img.endian);
-	ft_mlx_img_draw(img, map_path);
+	ft_mlx_img_draw(screen.matrix, img);
 	mlx_put_image_to_window(
 		screen.mlx_ptr, screen.win_ptr,
 		img.img_ptr, img.width * IMG_W_POS_COEFF, img.height * IMG_H_POS_COEFF);
