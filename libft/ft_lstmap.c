@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:35:48 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/17 17:54:21 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/17 19:00:25 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 		node = ft_lstnew(content);
 		if (!node)
 		{
-			ft_lstclear(lst2, del);
+			ft_lstclear(&lst2, del);
 			break ;
 		}
 		ft_lstadd_back(lst2, node);

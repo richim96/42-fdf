@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:45:52 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/17 18:27:33 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/17 18:56:41 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ size_t	ft_strlen(const char *s);
 
 /* Linked list functions */
 int		ft_lstsize(t_list *lst);
-void	ft_lstclear(t_list *head, void (*del)(void *));
+void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstdelone(t_list *node, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstadd_back(t_list *head, t_list *new);
