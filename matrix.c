@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:11:39 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/17 18:34:45 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/17 18:59:02 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static t_list	*ft_vector_populate(t_list *matrix, char **z_coords, int x, int y)
 		vector_new = malloc(3);
 		if (!vector_new)
 		{
-			ft_lstclear(matrix, free);
-			return (NULL);
+			ft_lstclear(&matrix, free);
+			break ;
 		}
 		vector_new[0] = x++;
 		vector_new[1] = y;
@@ -37,8 +37,8 @@ static t_list	*ft_vector_populate(t_list *matrix, char **z_coords, int x, int y)
 		node_new = ft_lstnew(vector_new);
 		if (!node_new)
 		{
-			ft_lstclear(matrix, free);
-			return (NULL);
+			ft_lstclear(&matrix, free);
+			break ;
 		}
 		matrix = ft_lstadd_back(matrix, node_new);
 		z_coords++;
