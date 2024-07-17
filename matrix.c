@@ -6,79 +6,76 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:11:39 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/16 15:23:40 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/17 13:28:56 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static char	**ft_z_vector_normalize(char **z_vector)
+static char	**ft_z_coords_normalize(char **z_coords)
 {
-	return (z_vector);
+	return (z_coords);
 }
 
 /* Returns 1 upon successfully adding the nodes for the current vector */
-static int	ft_vector3D_fill(t_list **matrix, char **z_vector, int x, int y)
+static int	ft_vector_populate(t_list **matrix, char **z_coords, int x, int y)
 {
 	t_list	*node;
-	int		*content;
+	int		*vector;
 
-	while (*z_vector)
+	while (*z_coords)
 	{
-		content = malloc(3);
-		if (!content)
-		{
-			ft_lstclear(matrix, free);
+		vector = malloc(3);
+		if (!vector)
 			return (0);
-		}
-		content[0] = x++;
-		content[1] = y;
-		content[2] = ft_atoi(*z_vector);
-		node = ft_lstnew(content);
+		vector[0] = x++;
+		vector[1] = y;
+		vector[2] = ft_atoi(*z_coords);
+		node = ft_lstnew(vector);
 		if (!node)
-		{
-			ft_lstclear(matrix, free);
 			return (0);
-		}
 		ft_lstadd_back(matrix, node);
-		z_vector++;
+		z_coords++;
 	}
 	return (1);
 }
 
-static void	ft_matrix_fill(int fd, char *line, t_list **matrix)
+static void	ft_matrix_populate(int fd, char *line, t_list **matrix)
 {
-	char	**z_vector;
 	int		x;
 	int		y;
-	int		vector3D_fill;
+	int		is_vector;
+	char	**z_coords;
 
 	x = 0;
 	y = 0;
 	while (line)
 	{
-		z_vector = ft_z_vector_normalize(ft_split(line, ' '));
+		z_coords = ft_z_coords_normalize(ft_split(line, ' '));
 		free(line);
-		vector3D_fill = ft_vector3D_fill(matrix, z_vector, x, y);
-		if (!vector3D_fill)
+		is_vector = ft_vector_populate(matrix, z_coords, x, y);
+		if (!is_vector)
+		{
+			ft_lstclear(matrix, free);
 			return ;
-		y++;
+		}
 		line = ft_get_next_line(fd);
+		y++;
 	}
 }
 
 t_list	**ft_matrix_make(char *map_path)
 {
 	t_list	**matrix;
-	t_list	*__init_node;
+	t_list	*__head;
 	char	*line;
 	int		fd;
 
 	fd = open(map_path, O_RDONLY);
 	line = ft_get_next_line(fd);
-	__init_node = NULL;
-	matrix = &__init_node;
-	ft_matrix_fill(fd, line, matrix);
+	__head = NULL;
+	matrix = &__head;
+	ft_matrix_populate(fd, line, matrix);
 	close(fd);
 	return (matrix);
 }
