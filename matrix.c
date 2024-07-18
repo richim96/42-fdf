@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:11:39 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/17 18:59:02 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/18 11:44:46 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ static char	**ft_z_coords_normalize(char **z_coords)
 }
 
 /* Returns 1 upon successfully adding the nodes for the current vector */
-static t_list	*ft_vector_populate(t_list *matrix, char **z_coords, int x, int y)
+static t_list	*ft_vector_add(t_list *matrix, char **z_coords, int x, int y)
 {
 	t_list	*node_new;
 	int		*vector_new;
 
 	while (*z_coords)
 	{
-		vector_new = malloc(3);
+		vector_new = malloc(3 * sizeof(int));
 		if (!vector_new)
 		{
 			ft_lstclear(&matrix, free);
@@ -58,7 +58,7 @@ static t_list	*ft_matrix_populate(int fd, char *line, t_list *matrix)
 	{
 		z_coords = ft_z_coords_normalize(ft_split(line, ' '));
 		free(line);
-		matrix = ft_vector_populate(matrix, z_coords, x, y);
+		matrix = ft_vector_add(matrix, z_coords, x, y);
 		if (!matrix)
 			return (NULL);
 		line = ft_get_next_line(fd);

@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 14:14:12 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/17 19:07:30 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/18 11:42:37 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ static void	ft_mlx_events_init(t_screen *screen)
 
 static void	ft_mlx_pixel_draw(t_img img, int x, int y, unsigned int pixel_color)
 {
-	int		bytes_per_pixel;
-	int		pixel_offset;
-	char	*coordinate;
+	unsigned int	bytes_per_pixel;
+	unsigned int	offset;
+	char			*pixel_ptr;
 
 	bytes_per_pixel = img.bits_per_pixel / 8;
-	pixel_offset = y * img.size_line + x * bytes_per_pixel;
-	coordinate = img.img_addr + pixel_offset;
-	*(unsigned int *)coordinate = pixel_color;
+	offset = y * img.size_line + x * bytes_per_pixel;
+	pixel_ptr = img.img_addr + offset;
+	*(unsigned int *)pixel_ptr = pixel_color;
 }
 
 static void	ft_mlx_img_draw(t_list *matrix, t_img img)
