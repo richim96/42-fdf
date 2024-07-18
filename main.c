@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:27:12 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/18 14:22:56 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/18 14:25:38 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static int	ft_file_is_valid(char *map_path)
 	return (0);
 }
 
-// TEMP FUNCTION
 static int	ft_map_is_valid(char *map_path)
 {
 	int		fd;

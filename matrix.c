@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:11:39 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/18 11:44:46 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/18 16:39:19 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,35 +18,32 @@ static char	**ft_z_coords_normalize(char **z_coords)
 }
 
 /* Returns 1 upon successfully adding the nodes for the current vector */
-static t_list	*ft_vector_add(t_list *matrix, char **z_coords, int x, int y)
+static t_list	*ft_vector_add(t_list *head, char **z_coords, int x, int y)
 {
 	t_list	*node_new;
 	int		*vector_new;
+	char	*z_data;
 
 	while (*z_coords)
 	{
 		vector_new = malloc(3 * sizeof(int));
 		if (!vector_new)
-		{
-			ft_lstclear(&matrix, free);
-			break ;
-		}
+			ft_quit_on_matrix_failure(head);
+		z_data = *z_coords;
 		vector_new[0] = x++;
 		vector_new[1] = y;
-		vector_new[2] = ft_atoi(*z_coords);
+		vector_new[2] = ft_atoi(z_data);
 		node_new = ft_lstnew(vector_new);
 		if (!node_new)
-		{
-			ft_lstclear(&matrix, free);
-			break ;
-		}
-		matrix = ft_lstadd_back(matrix, node_new);
+			ft_quit_on_matrix_failure(head);
+		head = ft_lstadd_back(head, node_new);
 		z_coords++;
+		free(z_data);
 	}
-	return (matrix);
+	return (head);
 }
 
-static t_list	*ft_matrix_populate(int fd, char *line, t_list *matrix)
+static t_list	*ft_matrix_populate(int fd, char *line, t_list *head)
 {
 	int		x;
 	int		y;
@@ -57,14 +54,13 @@ static t_list	*ft_matrix_populate(int fd, char *line, t_list *matrix)
 	while (line)
 	{
 		z_coords = ft_z_coords_normalize(ft_split(line, ' '));
+		head = ft_vector_add(head, z_coords, x, y);
 		free(line);
-		matrix = ft_vector_add(matrix, z_coords, x, y);
-		if (!matrix)
-			return (NULL);
+		free(z_coords);
 		line = ft_get_next_line(fd);
 		y++;
 	}
-	return (matrix);
+	return (head);
 }
 
 t_list	*ft_matrix_make(char *map_path)

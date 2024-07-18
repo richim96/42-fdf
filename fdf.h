@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:24:40 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/17 17:21:31 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/18 16:38:15 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	ft_matrix_rotate(t_list *matrix, int theta);
 
 // - Utils
 int		ft_isnumstr(char *s);
+void	ft_quit_on_matrix_failure(t_list *head);
 
 // - Hooks
 int		ft_mlx_kill(t_screen *screen);

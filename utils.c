@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 12:32:45 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/15 12:02:18 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/18 16:37:36 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,15 @@ int	ft_isnumstr(char *s)
 		s++;
 	}
 	return (1);
+}
+
+/* If the matrix creation fails, frees all memory and quits the program */ 
+void	ft_quit_on_matrix_failure(t_list *matrix)
+{
+	char	*error_msg;
+	
+	error_msg = "[ERROR] : Matrix initialization failed\n";
+	ft_lstclear(&matrix, free);
+	write(2, error_msg, ft_strlen(error_msg));
+	exit (1);
 }

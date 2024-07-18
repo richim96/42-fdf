@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 14:14:12 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/18 11:42:37 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/18 16:40:46 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static void	ft_mlx_img_draw(t_list *matrix, t_img img)
 		ft_mlx_pixel_draw(img, content[0], content[1], BASE_COLOR);
 		node = node->next;
 	}
-	ft_lstclear(&matrix, free);
 }
 
 void	ft_map_show(char *map_path)
@@ -50,10 +49,10 @@ void	ft_map_show(char *map_path)
 	t_screen	screen;
 	t_img		img;
 
+	screen.matrix = ft_matrix_make(map_path);
 	screen.mlx_ptr = mlx_init();
 	screen.win_ptr = mlx_new_window(
 			screen.mlx_ptr, WIN_WIDTH, WIN_HEIGHT, map_path);
-	screen.matrix = ft_matrix_make(map_path);
 	screen.img = &img;
 	img.width = WIN_WIDTH * IMG_SIZE_COEFF;
 	img.height = WIN_HEIGHT * IMG_SIZE_COEFF;
