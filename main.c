@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:27:12 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/10 14:35:33 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/18 14:22:56 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,26 @@ static int	ft_file_is_valid(char *map_path)
 static int	ft_map_is_valid(char *map_path)
 {
 	int		fd;
+	int		bytes_read;
 	char	*line;
 	char	*error_msg;
 
 	fd = open(map_path, O_RDONLY);
-	line = ft_get_next_line(fd);
-	error_msg = "[ERROR]: No map data\n";
-	if (!line)
+	if (fd == -1)
 	{
-		if (fd == -1)
-			perror("[SYS_ERROR]");
-		else
-			write(2, error_msg, ft_strlen(error_msg));
+		perror("[SYS_ERROR]");
 		return (0);
 	}
+	line = malloc(1);
+	bytes_read = read(fd, line, 1);
 	free(line);
 	close(fd);
+	error_msg = "[ERROR]: Empty map\n";
+	if (bytes_read == 0)
+	{
+		write(2, error_msg, ft_strlen(error_msg));
+		return (0);
+	}
 	return (1);
 }
 
