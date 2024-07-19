@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 14:14:12 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/18 16:40:46 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/19 11:55:23 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	ft_mlx_img_draw(t_list *matrix, t_img img)
 	while (node)
 	{
 		content = node->content;
-		ft_mlx_pixel_draw(img, content[0], content[1], BASE_COLOR);
+		ft_mlx_pixel_draw(img, content[0], content[1] + content[2], content[3]);
 		node = node->next;
 	}
 }
