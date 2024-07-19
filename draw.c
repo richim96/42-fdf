@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 14:14:12 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/19 11:55:23 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/19 18:25:52 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,37 @@ static void	ft_mlx_events_init(t_screen *screen)
 	mlx_key_hook(screen->win_ptr, ft_keyhook, screen);
 }
 
-static void	ft_mlx_pixel_draw(t_img img, int x, int y, unsigned int pixel_color)
+static void	ft_mlx_pixel_draw(t_img *img, int x, int y, unsigned int color)
 {
 	unsigned int	bytes_per_pixel;
 	unsigned int	offset;
 	char			*pixel_ptr;
 
-	bytes_per_pixel = img.bits_per_pixel / 8;
-	offset = y * img.size_line + x * bytes_per_pixel;
-	pixel_ptr = img.img_addr + offset;
-	*(unsigned int *)pixel_ptr = pixel_color;
+	bytes_per_pixel = img->bits_per_pixel / 8;
+	offset = y * img->size_line + x * bytes_per_pixel;
+	pixel_ptr = img->img_addr + offset;
+	*(unsigned int *)pixel_ptr = color;
 }
 
-static void	ft_mlx_img_draw(t_list *matrix, t_img img)
+static void	ft_mlx_img_draw(t_screen *screen)
 {
 	t_list	*node;
 	int		*content;
+	int		n_pixels;
 
-	node = matrix;
+	node = screen->matrix;
+	n_pixels = 0;
 	while (node)
 	{
 		content = node->content;
-		ft_mlx_pixel_draw(img, content[0], content[1] + content[2], content[3]);
+		ft_mlx_pixel_draw(
+			screen->img, content[0], content[1] + content[2], content[3]);
+		if (n_pixels % 5 == 0)
+			mlx_put_image_to_window(
+				screen->mlx_ptr, screen->win_ptr, screen->img->img_ptr,
+				WIN_WIDTH * IMG_W_POS_COEFF, WIN_HEIGHT * IMG_H_POS_COEFF
+				);
+		n_pixels++;
 		node = node->next;
 	}
 }
@@ -54,15 +63,10 @@ void	ft_map_show(char *map_path)
 	screen.win_ptr = mlx_new_window(
 			screen.mlx_ptr, WIN_WIDTH, WIN_HEIGHT, map_path);
 	screen.img = &img;
-	img.width = WIN_WIDTH * IMG_SIZE_COEFF;
-	img.height = WIN_HEIGHT * IMG_SIZE_COEFF;
-	img.img_ptr = mlx_new_image(screen.mlx_ptr, img.width, img.height);
+	img.img_ptr = mlx_new_image(screen.mlx_ptr, IMG_WIDTH, IMG_HEIGHT);
 	img.img_addr = mlx_get_data_addr(
 			img.img_ptr, &img.bits_per_pixel, &img.size_line, &img.endian);
 	ft_mlx_events_init(&screen);
-	ft_mlx_img_draw(screen.matrix, img);
-	mlx_put_image_to_window(
-		screen.mlx_ptr, screen.win_ptr,
-		img.img_ptr, img.width * IMG_W_POS_COEFF, img.height * IMG_H_POS_COEFF);
+	ft_mlx_img_draw(&screen);
 	mlx_loop(screen.mlx_ptr);
 }

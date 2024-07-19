@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:24:40 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/19 12:47:56 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/19 17:58:22 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ typedef struct s_img
 	int		bits_per_pixel;
 	int		size_line;
 	int		endian;
-	int		width;
-	int		height;
 }	t_img;
 
 typedef struct s_screen
@@ -52,8 +50,9 @@ t_list	*ft_matrix_make(char *map_path);
 t_list	*ft_matrix_rotate(t_list *matrix, int theta);
 
 // - Utils
-int		ft_isnumstr(char *s);
 int		ft_hextoi(char *hex);
+int		ft_n_cols(char **vector);
+int		ft_n_rows(char *map);
 void	ft_quit_on_matrix_failure(t_list *head);
 
 // - Hooks

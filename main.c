@@ -6,40 +6,40 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:27:12 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/18 14:25:38 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/19 17:17:08 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int	ft_file_is_valid(char *map_path)
+static int	ft_file_is_valid(char *map)
 {
 	char	*ext;
 	char	*error_msg;
 
 	ext = ".fdf";
 	error_msg = "[ERROR]: Invalid file type - extension must be .fdf\n";
-	while (*map_path && *map_path != '.')
-		map_path++;
-	while (*map_path == *ext && *map_path && *ext)
+	while (*map && *map != '.')
+		map++;
+	while (*map == *ext && *map && *ext)
 	{
-		map_path++;
+		map++;
 		ext++;
 	}
-	if (!*map_path && !*ext)
+	if (!*map && !*ext)
 		return (1);
 	write(2, error_msg, ft_strlen(error_msg));
 	return (0);
 }
 
-static int	ft_map_is_valid(char *map_path)
+static int	ft_map_is_valid(char *map)
 {
 	int		fd;
 	int		bytes_read;
 	char	*line;
 	char	*error_msg;
 
-	fd = open(map_path, O_RDONLY);
+	fd = open(map, O_RDONLY);
 	if (fd == -1)
 	{
 		perror("[SYS_ERROR]");
@@ -60,7 +60,7 @@ static int	ft_map_is_valid(char *map_path)
 
 int	main(int argc, char **argv)
 {
-	char	*map_path;
+	char	*map;
 	char	*error_msg;
 
 	error_msg = "[ERROR]: Invalid map argument\n";
@@ -69,11 +69,11 @@ int	main(int argc, char **argv)
 		write(2, error_msg, ft_strlen(error_msg));
 		return (1);
 	}
-	map_path = argv[1];
-	if (!ft_file_is_valid(map_path))
+	map = argv[1];
+	if (!ft_file_is_valid(map))
 		return (1);
-	if (!ft_map_is_valid(map_path))
+	if (!ft_map_is_valid(map))
 		return (1);
-	ft_map_show(map_path);
+	ft_map_show(map);
 	return (0);
 }
