@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:24:40 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/18 16:38:15 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/19 12:47:56 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FDF_H
 
 # include <fcntl.h>
+# include <math.h>
 # include <stdio.h>
 
 # include "libft.h"
@@ -41,15 +42,18 @@ typedef struct s_screen
 }	t_screen;
 
 /* FUNCTIONS  */
-// - Main
+// - Draw
 void	ft_map_show(char *map_path);
 
 // - Matrix
 t_list	*ft_matrix_make(char *map_path);
-void	ft_matrix_rotate(t_list *matrix, int theta);
+
+// - View
+t_list	*ft_matrix_rotate(t_list *matrix, int theta);
 
 // - Utils
 int		ft_isnumstr(char *s);
+int		ft_hextoi(char *hex);
 void	ft_quit_on_matrix_failure(t_list *head);
 
 // - Hooks

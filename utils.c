@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 12:32:45 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/18 16:37:36 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/19 12:55:57 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,35 @@ int	ft_isnumstr(char *s)
 	return (1);
 }
 
+/* Converts an hexadecimal (0xFFFFFF) number into decimal */
+int	ft_hextoi(char *hex)
+{
+	int	n;
+	int	n_pow;
+	int	result;
+
+	result = 0;
+	if (hex[1] == 'x')
+		hex += 2;
+	n_pow = ft_strlen(hex) - 1;
+	while (*hex)
+	{
+		if (ft_isalpha(*hex))
+			n = ft_tolower(*hex) - 'a' + 10;
+		else
+			n = *hex - '0';
+		result += n * pow(16, n_pow);
+		n_pow--;
+		hex++;
+	}
+	return (result);
+}
+
 /* If the matrix creation fails, frees all memory and quits the program */ 
 void	ft_quit_on_matrix_failure(t_list *matrix)
 {
 	char	*error_msg;
-	
+
 	error_msg = "[ERROR] : Matrix initialization failed\n";
 	ft_lstclear(&matrix, free);
 	write(2, error_msg, ft_strlen(error_msg));

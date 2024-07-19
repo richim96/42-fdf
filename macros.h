@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 12:24:05 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/17 14:03:27 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/19 12:57:29 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # define WIN_HEIGHT 480
 
 // - X11 image
-# define BASE_COLOR 0xFFFFFF
+# define BASE_COLOR "0xFFFFFF"
 # define IMG_SIZE_COEFF 0.66
 # define IMG_W_POS_COEFF 0.25
 # define IMG_H_POS_COEFF 0.35
