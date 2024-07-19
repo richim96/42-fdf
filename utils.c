@@ -6,27 +6,11 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 12:32:45 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/19 12:55:57 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/19 17:40:39 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-/* Check if a string is fully numeric, separted by spaces, tabs or new lines */
-int	ft_isnumstr(char *s)
-{
-	while (*s)
-	{
-		while (*s == ' ' || *s == '\t' || *s == '\n')
-			s++;
-		if (!*s)
-			return (1);
-		if (!ft_isdigit(*s))
-			return (0);
-		s++;
-	}
-	return (1);
-}
 
 /* Converts an hexadecimal (0xFFFFFF) number into decimal */
 int	ft_hextoi(char *hex)
@@ -50,6 +34,37 @@ int	ft_hextoi(char *hex)
 		hex++;
 	}
 	return (result);
+}
+
+/* Counts the matrix columns */
+int	ft_n_cols(char **vector)
+{
+	int	count;
+
+	count = 0;
+	while (*(vector++))
+		count++;
+	return (count);
+}
+
+/* Counts the matrix rows */
+int	ft_n_rows(char *map)
+{
+	int		fd;
+	int		count;
+	char	*line;
+
+	count = 0;
+	fd = open(map, O_RDONLY);
+	line = ft_get_next_line(fd);
+	while (line)
+	{
+		count++;
+		free(line);
+		line = ft_get_next_line(fd);
+	}
+	close(fd);
+	return (count);
 }
 
 /* If the matrix creation fails, frees all memory and quits the program */ 
