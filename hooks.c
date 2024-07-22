@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:09:21 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/18 16:03:09 by rmei             ###   ########.fr       */
+/*   Updated: 2024/07/20 11:12:31 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_mlx_kill(t_screen *screen)
 {
 	mlx_destroy_image(screen->mlx_ptr, screen->img->img_ptr);
 	mlx_destroy_window(screen->mlx_ptr, screen->win_ptr);
-	mlx_destroy_display(screen->mlx_ptr);
+	//mlx_destroy_display(screen->mlx_ptr)
 	free(screen->mlx_ptr);
 	ft_lstclear(&screen->matrix, free);
 	exit(0);
