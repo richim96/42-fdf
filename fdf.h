@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
+/*   By: rmei <rmei@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:24:40 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/19 17:58:22 by rmei             ###   ########.fr       */
+/*   Updated: 2024/08/02 20:29:31 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,29 +31,35 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
+typedef struct s_coord
+{
+	int	x;
+	int	y;
+	int	z;
+	int	pxl_color;
+}	t_coord;
+
 typedef struct s_screen
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
 	t_img	*img;
-	t_list	*matrix;
+	t_coord	**coords;
 }	t_screen;
 
 /* FUNCTIONS  */
 // - Draw
 void	ft_map_show(char *map_path);
 
-// - Matrix
-t_list	*ft_matrix_make(char *map_path);
-
-// - View
-t_list	*ft_matrix_rotate(t_list *matrix, int theta);
+// - Coordinate manipulation
+t_coord	**ft_coords_make(char *map, int fd);
+//char	*ft_vector_rotate(char *vector, int theta);
 
 // - Utils
 int		ft_hextoi(char *hex);
-int		ft_n_cols(char **vector);
+int		ft_n_cols(char *vector);
 int		ft_n_rows(char *map);
-void	ft_quit_on_matrix_failure(t_list *head);
+void	ft_write_error(char *error_msg);
 
 // - Hooks
 int		ft_mlx_kill(t_screen *screen);

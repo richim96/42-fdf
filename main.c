@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
+/*   By: rmei <rmei@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:27:12 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/19 17:17:08 by rmei             ###   ########.fr       */
+/*   Updated: 2024/08/02 16:22:02 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 static int	ft_file_is_valid(char *map)
 {
 	char	*ext;
-	char	*error_msg;
 
 	ext = ".fdf";
-	error_msg = "[ERROR]: Invalid file type - extension must be .fdf\n";
 	while (*map && *map != '.')
 		map++;
 	while (*map == *ext && *map && *ext)
@@ -28,7 +26,7 @@ static int	ft_file_is_valid(char *map)
 	}
 	if (!*map && !*ext)
 		return (1);
-	write(2, error_msg, ft_strlen(error_msg));
+	ft_write_error("[ERROR]: Invalid file type - extension must be .fdf\n");
 	return (0);
 }
 
@@ -37,7 +35,6 @@ static int	ft_map_is_valid(char *map)
 	int		fd;
 	int		bytes_read;
 	char	*line;
-	char	*error_msg;
 
 	fd = open(map, O_RDONLY);
 	if (fd == -1)
@@ -49,10 +46,9 @@ static int	ft_map_is_valid(char *map)
 	bytes_read = read(fd, line, 1);
 	free(line);
 	close(fd);
-	error_msg = "[ERROR]: Empty map\n";
 	if (bytes_read == 0)
 	{
-		write(2, error_msg, ft_strlen(error_msg));
+		ft_write_error("[ERROR]: Empty map\n");
 		return (0);
 	}
 	return (1);
@@ -61,12 +57,10 @@ static int	ft_map_is_valid(char *map)
 int	main(int argc, char **argv)
 {
 	char	*map;
-	char	*error_msg;
 
-	error_msg = "[ERROR]: Invalid map argument\n";
 	if (argc != 2)
 	{
-		write(2, error_msg, ft_strlen(error_msg));
+		ft_write_error("[ERROR]: Invalid map argument\n");
 		return (1);
 	}
 	map = argv[1];

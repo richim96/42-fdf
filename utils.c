@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
+/*   By: rmei <rmei@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 12:32:45 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/19 17:40:39 by rmei             ###   ########.fr       */
+/*   Updated: 2024/08/02 20:30:04 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,21 @@ int	ft_hextoi(char *hex)
 	return (result);
 }
 
-/* Counts the matrix columns */
-int	ft_n_cols(char **vector)
+/* Counts the map columns */
+int	ft_n_cols(char *vector)
 {
-	int	count;
+	int		i;
+	char	**coords;
 
-	count = 0;
-	while (*(vector++))
-		count++;
-	return (count);
+	i = 0;
+	coords = ft_split(vector, ' ');
+	while (coords[i])
+	{
+		free(coords[i]);
+		i++;
+	}
+	free(coords);
+	return (i);
 }
 
 /* Counts the matrix rows */
@@ -67,13 +73,7 @@ int	ft_n_rows(char *map)
 	return (count);
 }
 
-/* If the matrix creation fails, frees all memory and quits the program */ 
-void	ft_quit_on_matrix_failure(t_list *matrix)
+void	ft_write_error(char *error_msg)
 {
-	char	*error_msg;
-
-	error_msg = "[ERROR] : Matrix initialization failed\n";
-	ft_lstclear(&matrix, free);
 	write(2, error_msg, ft_strlen(error_msg));
-	exit (1);
 }

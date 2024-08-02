@@ -3,22 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
+/*   By: rmei <rmei@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:09:21 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/20 11:12:31 by rmei             ###   ########.fr       */
+/*   Updated: 2024/08/02 20:47:14 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+/* Exit code must be 0 for success or 1 for failure */
 int	ft_mlx_kill(t_screen *screen)
 {
+	int	i;
+
+	i = 0;
+	while (screen->coords[i])
+		free(screen->coords[i++]);
+	free(screen->coords);
 	mlx_destroy_image(screen->mlx_ptr, screen->img->img_ptr);
 	mlx_destroy_window(screen->mlx_ptr, screen->win_ptr);
-	//mlx_destroy_display(screen->mlx_ptr)
+	//mlx_destroy_display(screen->mlx_ptr);
 	free(screen->mlx_ptr);
-	ft_lstclear(&screen->matrix, free);
 	exit(0);
 }
 
