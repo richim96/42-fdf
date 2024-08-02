@@ -6,12 +6,12 @@
 #    By: rmei <rmei@student.42berlin.de>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/25 20:57:11 by rmei              #+#    #+#              #
-#    Updated: 2024/08/02 20:46:13 by rmei             ###   ########.fr        #
+#    Updated: 2024/08/02 20:49:32 by rmei             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #### -- VARIABLES -- ####
-SRC = coordinate_manipulation.c drawing.c hooks.c main.c utils.c
+SRC = coord_manipulation.c drawing.c hooks.c main.c utils.c
 OBJS = $(SRC:%.c=%.o)
 NAME = fdf
 
