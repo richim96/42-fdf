@@ -20,6 +20,7 @@
 
 /* Macros */ 
 # define MAX_PFD 1024
+# define LINE_SIZE 128
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1024

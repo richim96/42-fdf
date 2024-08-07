@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 12:32:45 by rmei              #+#    #+#             */
-/*   Updated: 2024/08/02 20:30:04 by rmei             ###   ########.fr       */
+/*   Updated: 2024/08/07 18:42:15 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,41 +36,32 @@ int	ft_hextoi(char *hex)
 	return (result);
 }
 
-/* Counts the map columns */
-int	ft_n_cols(char *vector)
-{
-	int		i;
-	char	**coords;
-
-	i = 0;
-	coords = ft_split(vector, ' ');
-	while (coords[i])
-	{
-		free(coords[i]);
-		i++;
-	}
-	free(coords);
-	return (i);
-}
-
 /* Counts the matrix rows */
-int	ft_n_rows(char *map)
+void	ft_content_size_get(t_img *img, char *map)
 {
 	int		fd;
-	int		count;
+	int		n_cols;
+	int		n_rows;
 	char	*line;
+	char	**coords;
 
-	count = 0;
 	fd = open(map, O_RDONLY);
 	line = ft_get_next_line(fd);
+	coords = ft_split(line, ' ');
+	n_cols = 0;
+	n_rows = 0;
+	while (coords[n_cols])
+		free(coords[n_cols++]);
+	free(coords);
 	while (line)
 	{
-		count++;
+		n_rows++;
 		free(line);
 		line = ft_get_next_line(fd);
 	}
 	close(fd);
-	return (count);
+	img->n_cols = n_cols;
+	img->n_rows = n_rows;
 }
 
 void	ft_write_error(char *error_msg)

@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:24:40 by rmei              #+#    #+#             */
-/*   Updated: 2024/08/02 20:29:31 by rmei             ###   ########.fr       */
+/*   Updated: 2024/08/07 19:38:08 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,41 +29,41 @@ typedef struct s_img
 	int		bits_per_pixel;
 	int		size_line;
 	int		endian;
+	int		n_cols;
+	int		n_rows;
 }	t_img;
 
-typedef struct s_coord
+typedef struct s_vector
 {
 	int	x;
 	int	y;
 	int	z;
 	int	pxl_color;
-}	t_coord;
+}	t_vector_3d;
 
 typedef struct s_screen
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
 	t_img	*img;
-	t_coord	**coords;
+	t_vector_3d	**vectors;
 }	t_screen;
 
 /* FUNCTIONS  */
 // - Draw
 void	ft_map_show(char *map_path);
 
-// - Coordinate manipulation
-t_coord	**ft_coords_make(char *map, int fd);
-//char	*ft_vector_rotate(char *vector, int theta);
+// - Vectors
+t_vector_3d	**ft_vectors_make(t_img *img, char *map);
 
 // - Utils
 int		ft_hextoi(char *hex);
-int		ft_n_cols(char *vector);
-int		ft_n_rows(char *map);
+void	ft_content_size_get(t_img *img, char *map);
 void	ft_write_error(char *error_msg);
 
 // - Hooks
+void	ft_mlx_events_init(t_screen *screen);
 int		ft_mlx_kill(t_screen *screen);
 int		ft_keyhook(int key, t_screen *screen);
-int		ft_mousehook(int button, t_screen *screen);
 
 #endif

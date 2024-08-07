@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 12:24:05 by rmei              #+#    #+#             */
-/*   Updated: 2024/08/02 14:39:59 by rmei             ###   ########.fr       */
+/*   Updated: 2024/08/07 18:02:00 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,15 @@
 # define WIN_HEIGHT 720
 
 // - X11 image
-# define IMG_WIDTH 960
-# define IMG_HEIGHT 540
-# define IMG_W_POS_COEFF 0.15
+# define IMG_WIDTH 1024
+# define IMG_HEIGHT 576
+# define IMG_W_POS_COEFF 0.11
 # define IMG_H_POS_COEFF 0.15
-# define STD_PXL_COLOR "0xFFFFFF"
+
+// - Render details
+# define ISO 0.523599 // radians for 30deg - isometric projection
+# define PXL_WHITE "0xFFFFFF"
+# define PXL_MAROON "0x800000"
 
 // - X11 events
 # define ON_DESTROY 17

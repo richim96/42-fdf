@@ -78,7 +78,7 @@ char	*ft_get_next_line(int fd)
 	if (fd < 0 || fd > MAX_PFD)
 		return (NULL);
 	line.i = 0;
-	line.size = 128;
+	line.size = LINE_SIZE;
 	line.line = NULL;
 	s_buffer = &fd_arr[fd];
 	while (1)

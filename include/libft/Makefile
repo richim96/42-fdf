@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+         #
+#    By: rmei <rmei@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/23 12:10:35 by rmei              #+#    #+#              #
-#    Updated: 2024/07/01 15:07:37 by rmei             ###   ########.fr        #
+#    Updated: 2024/08/07 12:58:46 by rmei             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRC = atoi bzero calloc get_next_line haschar isalnum isalpha isascii isdigit \
 	putnbr_fd putnbr_base_fd putstr_fd realloc split substr strchr strdup striteri \
 	strjoin strlcat strlcpy strlen strmapi strncmp strnstr strrchr strtrim tolower \
 	toupper
-SRC := $(addsuffix .c, $(addprefix ft_, ${SRC}))
+SRC := $(addsuffix .c, $(addprefix src/ft_, ${SRC}))
 
 OBJS = ${SRC:%.c=%.o}
 

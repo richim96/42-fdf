@@ -6,38 +6,41 @@
 #    By: rmei <rmei@student.42berlin.de>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/25 20:57:11 by rmei              #+#    #+#              #
-#    Updated: 2024/08/02 20:49:32 by rmei             ###   ########.fr        #
+#    Updated: 2024/08/07 20:16:06 by rmei             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #### -- VARIABLES -- ####
-SRC = coord_manipulation.c drawing.c hooks.c main.c utils.c
+SRC = draw.c hooks.c main.c utils.c vectors.c
+SRC := $(addprefix src/, $(SRC))
 OBJS = $(SRC:%.c=%.o)
+LIBFT = include/libft
+MINILIBX = include/minilibx
 NAME = fdf
 
-CPPFLAGS = -I./libft -I./minilibx/
-CFLAGS = -Wall -Werror -Wextra 
-LDFLAGS = -lm -L./libft -lft -L./minilibx/ -lmlx -framework OpenGL -framework AppKit
+CPPFLAGS = -I./include -I./$(LIBFT) -I./$(MINILIBX)
+CFLAGS = -Wall -Werror -Wextra -g 
+LDFLAGS = -lm -L./$(LIBFT) -lft -L./$(MINILIBX) -lmlx -framework OpenGL -framework AppKit
 
 #### -- RULES -- ####
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	make -sC libft
-	make -sC minilibx
+	make -sC $(LIBFT)
+	make -sC $(MINILIBX)
 	cc $^ $(LDFLAGS) -o $@
 
 %.o: %.c
 	cc $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
 clean:
-	make clean -sC libft
-	make clean -sC minilibx
+	make clean -sC $(LIBFT)
+	make clean -sC $(MINILIBX)
 	rm -f $(OBJS)
 
 fclean: 
-	make fclean -sC libft
-	make fclean -sC minilibx
+	make fclean -sC $(LIBFT)
+	make fclean -sC $(MINILIBX)
 	rm -f $(OBJS) $(NAME)
 
 re: fclean all
