@@ -6,12 +6,12 @@
 #    By: rmei <rmei@student.42berlin.de>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/25 20:57:11 by rmei              #+#    #+#              #
-#    Updated: 2024/08/07 20:16:06 by rmei             ###   ########.fr        #
+#    Updated: 2024/08/09 20:29:38 by rmei             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #### -- VARIABLES -- ####
-SRC = draw.c hooks.c main.c utils.c vectors.c
+SRC = draw.c main.c mlx_events.c transform.c utils.c vectors.c
 SRC := $(addprefix src/, $(SRC))
 OBJS = $(SRC:%.c=%.o)
 LIBFT = lib/libft

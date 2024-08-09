@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 12:24:05 by rmei              #+#    #+#             */
-/*   Updated: 2024/08/07 18:02:00 by rmei             ###   ########.fr       */
+/*   Updated: 2024/08/09 20:14:49 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 # define MACROS_H
 
 // - X11 screen
-# define WIN_WIDTH 1280
-# define WIN_HEIGHT 720
+# define W_WIDTH 1280
+# define W_HEIGHT 720
 
 // - X11 image
-# define IMG_WIDTH 1024
-# define IMG_HEIGHT 576
-# define IMG_W_POS_COEFF 0.12
-# define IMG_H_POS_COEFF 0.15
+# define I_WIDTH 1024
+# define I_HEIGHT 576
+# define IX_POS 0.10
+# define IY_POS 0.10
 
 // - Render details
+# define BG_COLOR "0x800000"
 # define PXL_WHITE "0xFFFFFF"
-# define PXL_MAROON "0x800000"
 
 // - X11 events
 # define ON_DESTROY 17

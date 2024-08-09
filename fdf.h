@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:24:40 by rmei              #+#    #+#             */
-/*   Updated: 2024/08/07 19:38:08 by rmei             ###   ########.fr       */
+/*   Updated: 2024/08/09 20:18:27 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,9 @@ void	ft_map_show(char *map_path);
 
 // - Vectors
 t_vector_3d	**ft_vectors_make(t_img *img, char *map);
+
+// - Projections
+void ft_iso_transform(t_vector_3d **vecs, int max_x, int max_y);
 
 // - Utils
 int		ft_hextoi(char *hex);

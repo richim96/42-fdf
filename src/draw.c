@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 14:14:12 by rmei              #+#    #+#             */
-/*   Updated: 2024/08/07 19:37:35 by rmei             ###   ########.fr       */
+/*   Updated: 2024/08/09 20:25:50 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,48 +25,85 @@ static void	ft_mlx_pxl_draw(t_img *img, int x, int y, unsigned int color)
 	*(unsigned int *)pixel_ptr = color;
 }
 
-static void	ft_mlx_line_draw(t_img *img, t_vector_3d **vecs, int pos)
+/* Apply Bresenham line algorithm to draw the x-axis coordinates */
+static void	ft_bres_x_draw(t_img *img, t_vector_3d **vecs, int pos)
 {
-	// int			x1;
-	// int			y1;
-	// int			x_end;
-	// int			y_end;
-	t_vector_3d	*start;
+	int	x;
+	int	y;
+	int	m;
+	int	slope_err;
+	int	color;
 
-	start = vecs[pos];
-	// x_end = vecs[pos + 1]->x;
-	// while (x_end >= start->x)
-	// {
-	// 	y1 = start->y + start->z;
-	// 	ft_mlx_pxl_draw(img, x_end--, y1, start->pxl_color);
-	// 	;
-	// }
-	// y_end = vecs[pos + img->max_x]->y;
-	// while (y_end >= start->y)
-	// {
-	// 	y1 = y_end + start->z;
-	// 	ft_mlx_pxl_draw(img, start->x, y1, start->pxl_color);
-	// 	y_end--;
-	// }
-	// x1 = start->x - start->y;
-	// y1 = (start->x + start->y) / 2 - start->z;
-	ft_mlx_pxl_draw(img, start->x, start->y, start->pxl_color);
+	x = vecs[pos]->x;
+	y = vecs[pos]->y;
+	m = (vecs[pos + 1]->y - y) * 2;
+	slope_err = m - (vecs[pos + 1]->x - x);
+	if (vecs[pos]->z == vecs[pos + 1]->z)
+		color = vecs[pos]->pxl_color;
+	else
+		color = ft_hextoi(BG_COLOR);
+	while (x <= vecs[pos + 1]->x)
+	{
+		ft_mlx_pxl_draw(img, x, y, color);
+		slope_err += m;
+		if (slope_err >= 0)
+		{
+			y++;
+			slope_err -= (vecs[pos + 1]->x - x) * 2;
+		}
+		x++;
+	}
+}
+
+/* Apply Bresenham line algorithm to draw the y-axis coordinates */
+static void	ft_bres_y_draw(t_img *img, t_vector_3d **vecs, int pos)
+{
+	int	x;
+	int	y;
+	int	m;
+	int	slope_err;
+	int	color;
+
+	x = vecs[pos]->x;
+	y = vecs[pos]->y;
+	m = (vecs[pos + img->max_x]->x - x) * 2;
+	slope_err = m - (vecs[pos + img->max_x]->y - y);
+	if (vecs[pos]->z == vecs[pos + img->max_x]->z)
+		color = vecs[pos]->pxl_color;
+	else
+		color = vecs[pos + img->max_x]->pxl_color;
+	while (y <= vecs[pos + img->max_x]->y)
+	{
+		ft_mlx_pxl_draw(img, x, y, color);
+		slope_err += m;
+		if (slope_err >= 0)
+		{
+			x++;
+			slope_err -= (vecs[pos + img->max_x]->y - y) * 2;
+		}
+		y++;
+	}
 }
 
 static void	ft_mlx_img_draw(t_screen *screen)
 {
 	int		pos;
 
+	ft_iso_transform(screen->vecs, screen->img->max_x, screen->img->max_y);
 	pos = 0;
-	while (screen->vecs[pos]) // + screen->img->max_x])
+	while (screen->vecs[pos + screen->img->max_x])
 	{
-		ft_mlx_line_draw(screen->img, screen->vecs, pos);
+		ft_bres_x_draw(screen->img, screen->vecs, pos);
+		ft_bres_y_draw(screen->img, screen->vecs, pos);
+		if (pos % 25 == 0)
+			mlx_put_image_to_window(
+				screen->mlx_ptr, screen->win_ptr, screen->img->img_ptr,
+				W_WIDTH * IX_POS, W_HEIGHT * IY_POS);
 		pos++;
 	}
 	mlx_put_image_to_window(
 		screen->mlx_ptr, screen->win_ptr, screen->img->img_ptr,
-		WIN_WIDTH * IMG_W_POS_COEFF, WIN_HEIGHT * IMG_H_POS_COEFF
-		);
+		W_WIDTH * IX_POS, W_HEIGHT * IY_POS);
 }
 
 void	ft_map_show(char *map)
@@ -76,8 +113,8 @@ void	ft_map_show(char *map)
 
 	screen.mlx_ptr = mlx_init();
 	screen.win_ptr = mlx_new_window(
-			screen.mlx_ptr, WIN_WIDTH, WIN_HEIGHT, map);
-	img.img_ptr = mlx_new_image(screen.mlx_ptr, IMG_WIDTH, IMG_HEIGHT);
+			screen.mlx_ptr, W_WIDTH, W_HEIGHT, map);
+	img.img_ptr = mlx_new_image(screen.mlx_ptr, W_WIDTH, W_HEIGHT);
 	img.img_addr = mlx_get_data_addr(
 			img.img_ptr, &img.bits_per_pixel, &img.size_line, &img.endian);
 	ft_content_size_get(&img, map);

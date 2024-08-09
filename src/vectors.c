@@ -23,10 +23,10 @@ static void	ft_z_info_unpack(t_vector_3d *vec, char *z_info)
 		vec->pxl_color = ft_hextoi(z_value_color[1]);
 	else
 	{
-		if (vec->z > 0)
+		if (vec->z != 0)
 			vec->pxl_color = ft_hextoi(PXL_WHITE);
 		else
-			vec->pxl_color = ft_hextoi(PXL_MAROON);
+			vec->pxl_color = ft_hextoi(BG_COLOR);
 	}
 	free(z_value_color[0]);
 	free(z_value_color[1]);
@@ -48,30 +48,25 @@ static t_vector_3d	*ft_vector_make(char *z_info, int x, int y)
 }
 
 /* Adds a 3D vector to the existing vector array */
-static t_vector_3d	**ft_vector_add(
-	t_vector_3d **vecs, char *vec, int max_x, int y)
+static t_vector_3d	**ft_vector_add(t_vector_3d **vecs, char *vec, int y)
 {
 	int			x;
-	int			i;
 	static int	j;
 	char		**z_data;
 
 	z_data = ft_split(vec, ' ');
 	x = 0;
-	i = max_x;
-	i = 0;
-	while (z_data[i])
+	while (z_data[x])
 	{
-		vecs[j] = ft_vector_make(z_data[i], x, y);
+		vecs[j] = ft_vector_make(z_data[x], x, y);
 		if (!vecs[j])
 		{
 			ft_double_ptr_free((void **)vecs, j, TRUE);
-			ft_double_ptr_free((void **)z_data, i, FALSE);
+			ft_double_ptr_free((void **)z_data, x, FALSE);
 			return (NULL);
 		}
-		free(z_data[i]);
-		x += 1;// IMG_WIDTH / max_x;
-		i++;
+		free(z_data[x]);
+		x++;
 		j++;
 	}
 	free(z_data);
@@ -96,12 +91,12 @@ t_vector_3d	**ft_vectors_make(t_img *img, char *map)
 		y = 0;
 		while (line)
 		{
-			vecs = ft_vector_add(vecs, line, img->max_x, y);
+			vecs = ft_vector_add(vecs, line, y);
 			free(line);
 			if (!vecs)
 				break ;
 			line = ft_get_next_line(fd);
-			y += 1;// IMG_HEIGHT / img->max_y;
+			y++;
 		}
 	}
 	close(fd);
