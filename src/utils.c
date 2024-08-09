@@ -40,31 +40,43 @@ int	ft_hextoi(char *hex)
 void	ft_content_size_get(t_img *img, char *map)
 {
 	int		fd;
-	int		n_cols;
-	int		n_rows;
+	int		max_x;
+	int		max_y;
 	char	*line;
 	char	**coords;
 
 	fd = open(map, O_RDONLY);
 	line = ft_get_next_line(fd);
 	coords = ft_split(line, ' ');
-	n_cols = 0;
-	n_rows = 0;
-	while (coords[n_cols])
-		free(coords[n_cols++]);
+	max_x = 0;
+	max_y = 0;
+	while (coords[max_x])
+		free(coords[max_x++]);
 	free(coords);
 	while (line)
 	{
-		n_rows++;
+		max_y++;
 		free(line);
 		line = ft_get_next_line(fd);
 	}
 	close(fd);
-	img->n_cols = n_cols;
-	img->n_rows = n_rows;
+	img->max_x = max_x;
+	img->max_y = max_y;
 }
 
 void	ft_write_error(char *error_msg)
 {
 	write(2, error_msg, ft_strlen(error_msg));
+}
+
+/* Frees nested allocations in a double pointer */
+void	ft_double_ptr_free(void **ptr, int pos, int reverse)
+{
+	if (reverse == TRUE)
+		while (--pos >= 0)
+			free(ptr[pos]);
+	else
+		while (ptr[pos])
+			free(ptr[pos++]);
+	free(ptr);
 }

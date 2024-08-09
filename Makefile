@@ -14,11 +14,11 @@
 SRC = draw.c hooks.c main.c utils.c vectors.c
 SRC := $(addprefix src/, $(SRC))
 OBJS = $(SRC:%.c=%.o)
-LIBFT = include/libft
-MINILIBX = include/minilibx
+LIBFT = lib/libft
+MINILIBX = lib/minilibx
 NAME = fdf
 
-CPPFLAGS = -I./include -I./$(LIBFT) -I./$(MINILIBX)
+CPPFLAGS = -I. -I./include
 CFLAGS = -Wall -Werror -Wextra -g 
 LDFLAGS = -lm -L./$(LIBFT) -lft -L./$(MINILIBX) -lmlx -framework OpenGL -framework AppKit
 

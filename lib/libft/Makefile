@@ -33,7 +33,7 @@ ${NAME}: ${OBJS}
 	@ar -rcs $@ $^
 
 %.o: %.c
-	@cc ${CPPFLAGS} ${CFLAGS} -c -o $@ $<
+	@cc ${CPPFLAGS} ${CFLAGS} -c $< -o $@
 
 clean:
 	@rm -f ${OBJS}

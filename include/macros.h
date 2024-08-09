@@ -20,11 +20,10 @@
 // - X11 image
 # define IMG_WIDTH 1024
 # define IMG_HEIGHT 576
-# define IMG_W_POS_COEFF 0.11
+# define IMG_W_POS_COEFF 0.12
 # define IMG_H_POS_COEFF 0.15
 
 // - Render details
-# define ISO 0.523599 // radians for 30deg - isometric projection
 # define PXL_WHITE "0xFFFFFF"
 # define PXL_MAROON "0x800000"
 
@@ -36,7 +35,8 @@
 # define X11LINUX_ESC 65307
 # define X11MACOS_ESC 53
 
-// - Initial matrix byte-size
-# define MATRIX_SIZE 512
+// - Boolean values
+# define TRUE 1
+# define FALSE 0
 
 #endif

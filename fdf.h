@@ -29,8 +29,8 @@ typedef struct s_img
 	int		bits_per_pixel;
 	int		size_line;
 	int		endian;
-	int		n_cols;
-	int		n_rows;
+	int		max_x;
+	int		max_y;
 }	t_img;
 
 typedef struct s_vector
@@ -38,7 +38,7 @@ typedef struct s_vector
 	int	x;
 	int	y;
 	int	z;
-	int	pxl_color;
+	int pxl_color;
 }	t_vector_3d;
 
 typedef struct s_screen
@@ -46,7 +46,7 @@ typedef struct s_screen
 	void	*mlx_ptr;
 	void	*win_ptr;
 	t_img	*img;
-	t_vector_3d	**vectors;
+	t_vector_3d	**vecs;
 }	t_screen;
 
 /* FUNCTIONS  */
@@ -60,6 +60,7 @@ t_vector_3d	**ft_vectors_make(t_img *img, char *map);
 int		ft_hextoi(char *hex);
 void	ft_content_size_get(t_img *img, char *map);
 void	ft_write_error(char *error_msg);
+void	ft_double_ptr_free(void **ptr, int pos, int reverse);
 
 // - Hooks
 void	ft_mlx_events_init(t_screen *screen);

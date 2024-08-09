@@ -13,7 +13,7 @@
 #include "fdf.h"
 
 /* Minilibx wrapper to color a pixel at the right address */
-static void	ft_mlx_pixel_draw(t_img *img, int x, int y, unsigned int color)
+static void	ft_mlx_pxl_draw(t_img *img, int x, int y, unsigned int color)
 {
 	unsigned int	bytes_per_pixel;
 	unsigned int	offset;
@@ -25,35 +25,49 @@ static void	ft_mlx_pixel_draw(t_img *img, int x, int y, unsigned int color)
 	*(unsigned int *)pixel_ptr = color;
 }
 
-
-static void	ft_mlx_line_draw(t_img *img, t_vector_3d *vector)
+static void	ft_mlx_line_draw(t_img *img, t_vector_3d **vecs, int pos)
 {
-	int	pixel_x;
-	int	pixel_y;
+	// int			x1;
+	// int			y1;
+	// int			x_end;
+	// int			y_end;
+	t_vector_3d	*start;
 
-	pixel_x = 0;
-	pixel_y = 0;
-	ft_mlx_pixel_draw(img, vector->x, vector->y, vector->pxl_color);
+	start = vecs[pos];
+	// x_end = vecs[pos + 1]->x;
+	// while (x_end >= start->x)
+	// {
+	// 	y1 = start->y + start->z;
+	// 	ft_mlx_pxl_draw(img, x_end--, y1, start->pxl_color);
+	// 	;
+	// }
+	// y_end = vecs[pos + img->max_x]->y;
+	// while (y_end >= start->y)
+	// {
+	// 	y1 = y_end + start->z;
+	// 	ft_mlx_pxl_draw(img, start->x, y1, start->pxl_color);
+	// 	y_end--;
+	// }
+	// x1 = start->x - start->y;
+	// y1 = (start->x + start->y) / 2 - start->z;
+	ft_mlx_pxl_draw(img, start->x, start->y, start->pxl_color);
 }
-
 
 static void	ft_mlx_img_draw(t_screen *screen)
 {
-	int		i;
+	int		pos;
 
-	i = 0;
-	while (screen->vectors[i + 1])
+	pos = 0;
+	while (screen->vecs[pos]) // + screen->img->max_x])
 	{
-		ft_mlx_line_draw(screen->img, screen->vectors[i]);	
-		if (i % 30 == 0)
-			mlx_put_image_to_window(
-				screen->mlx_ptr, screen->win_ptr, screen->img->img_ptr,
-				WIN_WIDTH * IMG_W_POS_COEFF, WIN_HEIGHT * IMG_H_POS_COEFF
-				);
-		i++;
+		ft_mlx_line_draw(screen->img, screen->vecs, pos);
+		pos++;
 	}
+	mlx_put_image_to_window(
+		screen->mlx_ptr, screen->win_ptr, screen->img->img_ptr,
+		WIN_WIDTH * IMG_W_POS_COEFF, WIN_HEIGHT * IMG_H_POS_COEFF
+		);
 }
-
 
 void	ft_map_show(char *map)
 {
@@ -68,8 +82,8 @@ void	ft_map_show(char *map)
 			img.img_ptr, &img.bits_per_pixel, &img.size_line, &img.endian);
 	ft_content_size_get(&img, map);
 	screen.img = &img;
-	screen.vectors = ft_vectors_make(screen.img, map);
-	if (!screen.vectors)
+	screen.vecs = ft_vectors_make(screen.img, map);
+	if (!screen.vecs)
 	{
 		ft_write_error("[ERROR]: Not enough memory available for this map\n");
 		ft_mlx_kill(&screen);

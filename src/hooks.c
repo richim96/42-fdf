@@ -18,17 +18,16 @@ void	ft_mlx_events_init(t_screen *screen)
 	mlx_key_hook(screen->win_ptr, ft_keyhook, screen);
 }
 
-/* Exit code must be 0 for success or 1 for failure */
 int	ft_mlx_kill(t_screen *screen)
 {
 	int	i;
 
-	if (screen->vectors)
+	if (screen->vecs)
 	{
 		i = 0;
-		while (screen->vectors[i])
-			free(screen->vectors[i++]);
-		free(screen->vectors);
+		while (screen->vecs[i])
+			free(screen->vecs[i++]);
+		free(screen->vecs);
 	}
 	mlx_destroy_image(screen->mlx_ptr, screen->img->img_ptr);
 	mlx_destroy_window(screen->mlx_ptr, screen->win_ptr);

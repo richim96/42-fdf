@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vectors.c                                          :+:      :+:    :+:   */
+/*   vecs.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmei <rmei@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,20 +13,20 @@
 #include "fdf.h"
 
 /* Unpacks the z-point info provided by the map (value and color) */
-static void	ft_z_info_unpack(t_vector_3d *vector, char *z_info)
+static void	ft_z_info_unpack(t_vector_3d *vec, char *z_info)
 {
 	char	**z_value_color;
 
 	z_value_color = ft_split(z_info, ',');
-	vector->z = ft_atoi(z_value_color[0]);
+	vec->z = ft_atoi(z_value_color[0]);
 	if (z_value_color[1])
-		vector->pxl_color = ft_hextoi(z_value_color[1]);
+		vec->pxl_color = ft_hextoi(z_value_color[1]);
 	else
 	{
-		if (vector->z > 0)
-			vector->pxl_color = ft_hextoi(PXL_WHITE);
+		if (vec->z > 0)
+			vec->pxl_color = ft_hextoi(PXL_WHITE);
 		else
-			vector->pxl_color = ft_hextoi(PXL_MAROON	);
+			vec->pxl_color = ft_hextoi(PXL_MAROON);
 	}
 	free(z_value_color[0]);
 	free(z_value_color[1]);
@@ -36,72 +36,74 @@ static void	ft_z_info_unpack(t_vector_3d *vector, char *z_info)
 /* Creates a 3D vector, extracting the relevant coordinate data */
 static t_vector_3d	*ft_vector_make(char *z_info, int x, int y)
 {
-	t_vector_3d	*vector;
+	t_vector_3d	*vec;
 
-	vector = malloc(sizeof(t_vector_3d));
-	if (!vector)
+	vec = malloc(sizeof(t_vector_3d));
+	if (!vec)
 		return (NULL);
-	vector->x = x;
-	vector->y = y;
-	ft_z_info_unpack(vector, z_info);
-	return (vector);
+	vec->x = x;
+	vec->y = y;
+	ft_z_info_unpack(vec, z_info);
+	return (vec);
 }
 
 /* Adds a 3D vector to the existing vector array */
-static t_vector_3d	**ft_vector_add(t_vector_3d **vectors, char *vector, int y)
+static t_vector_3d	**ft_vector_add(
+	t_vector_3d **vecs, char *vec, int max_x, int y)
 {
 	int			x;
+	int			i;
 	static int	j;
 	char		**z_data;
 
-	z_data = ft_split(vector, ' ');
+	z_data = ft_split(vec, ' ');
 	x = 0;
-	while (z_data[x])
+	i = max_x;
+	i = 0;
+	while (z_data[i])
 	{
-		vectors[j] = ft_vector_make(z_data[x], x, y);
-		if (!vectors[j])
+		vecs[j] = ft_vector_make(z_data[i], x, y);
+		if (!vecs[j])
 		{
-			while (--j >= 0)
-				free(vectors[j]);
-			free(vectors);
-			vectors = NULL;
-			while (z_data[x])
-				free(z_data[x++]);
-			break ;
+			ft_double_ptr_free((void **)vecs, j, TRUE);
+			ft_double_ptr_free((void **)z_data, i, FALSE);
+			return (NULL);
 		}
-		free(z_data[x]);
-		x++;
+		free(z_data[i]);
+		x += 1;// IMG_WIDTH / max_x;
+		i++;
 		j++;
 	}
 	free(z_data);
-	return (vectors);
+	return (vecs);
 }
 
 /* Creates the 3D vector array from which to draw the image to screen */
 t_vector_3d	**ft_vectors_make(t_img *img, char *map)
 {
-	int		y;
-	int		fd;
-	char	*line;
-	t_vector_3d	**vectors;
+	int			y;
+	int			fd;
+	char		*line;
+	t_vector_3d	**vecs;
 
 	fd = open(map, O_RDONLY);
 	line = ft_get_next_line(fd);
-	vectors = ft_calloc((img->n_cols * img->n_rows) + 1, sizeof(t_vector_3d *));
-	if (!vectors)
+	vecs = ft_calloc((img->max_x * img->max_y) + 1, sizeof(t_vector_3d *));
+	if (!vecs)
 		free(line);
 	else
 	{
 		y = 0;
 		while (line)
 		{
-			vectors = ft_vector_add(vectors, line, y++);
+			vecs = ft_vector_add(vecs, line, img->max_x, y);
 			free(line);
-			if (!vectors)
+			if (!vecs)
 				break ;
 			line = ft_get_next_line(fd);
+			y += 1;// IMG_HEIGHT / img->max_y;
 		}
 	}
 	close(fd);
-	return (vectors);
+	return (vecs);
 }
