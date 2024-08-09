@@ -21,10 +21,9 @@ void ft_iso_transform(t_vector_3d **vecs, int max_x, int max_y)
     t_vector_3d *vec;
     
     i = 0;
-    size = (I_HEIGHT) / (max_x * max_y);
+    size = (I_HEIGHT) / (max_x + max_y);
     if (size == 0)
-        size = 3;
-    printf("%i\n", size);
+        size = 1;
     while (vecs[i])
     {
         vec = vecs[i];
