@@ -13,30 +13,38 @@
 #ifndef MACROS_H
 # define MACROS_H
 
-// - X11 screen
+// X11 screen.
 # define W_WIDTH 1280
+// X11 screen.
 # define W_HEIGHT 720
 
-// - X11 image
+// X11 image.
 # define I_WIDTH 1024
+// X11 image.
 # define I_HEIGHT 576
+// X11 image.
 # define IX_POS 0.10
+// X11 image.
 # define IY_POS 0.10
 
-// - Render details
+// Render details.
 # define BG_COLOR "0x800000"
+// Render details.
 # define PXL_WHITE "0xFFFFFF"
 
-// - X11 events
+// X11 events.
 # define ON_DESTROY 17
+// X11 events.
 # define MLX_MASK 0
 
-// - X11 key codes
+// X11 key codes.
 # define X11LINUX_ESC 65307
+// X11 key codes.
 # define X11MACOS_ESC 53
 
-// - Boolean values
+// Boolean.
 # define TRUE 1
+// Boolean.
 # define FALSE 0
 
 #endif

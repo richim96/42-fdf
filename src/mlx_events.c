@@ -12,12 +12,14 @@
 
 #include "fdf.h"
 
+/* Initialize X11 events. */
 void	ft_mlx_events_init(t_screen *screen)
 {
 	mlx_hook(screen->win_ptr, ON_DESTROY, MLX_MASK, ft_mlx_kill, screen);
 	mlx_key_hook(screen->win_ptr, ft_keyhook, screen);
 }
 
+/* Free memory and terminate all X11 processes. */
 int	ft_mlx_kill(t_screen *screen)
 {
 	int	i;
@@ -36,6 +38,7 @@ int	ft_mlx_kill(t_screen *screen)
 	exit(0);
 }
 
+/* Key-based events. */
 int	ft_keyhook(int key, t_screen *screen)
 {
 	if (key == X11LINUX_ESC || key == X11MACOS_ESC)

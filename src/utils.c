@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-/* Converts an hexadecimal (0xFFFFFF) number into decimal */
+/* Convert a hexadecimal (0xFFFFFF) number to decimal base. */
 int	ft_hextoi(char *hex)
 {
 	int	n;
@@ -36,47 +36,47 @@ int	ft_hextoi(char *hex)
 	return (result);
 }
 
-/* Counts the matrix rows */
-void	ft_content_size_get(t_img *img, char *map)
+/* Compute the size of the map. */
+void	ft_map_size_get(t_img *img, char *map)
 {
 	int		fd;
-	int		max_x;
-	int		max_y;
+	int		width;
+	int		height;
 	char	*line;
 	char	**coords;
 
 	fd = open(map, O_RDONLY);
 	line = ft_get_next_line(fd);
 	coords = ft_split(line, ' ');
-	max_x = 0;
-	max_y = 0;
-	while (coords[max_x])
-		free(coords[max_x++]);
+	width = 0;
+	height = 0;
+	while (coords[width])
+		free(coords[width++]);
 	free(coords);
 	while (line)
 	{
-		max_y++;
+		height++;
 		free(line);
 		line = ft_get_next_line(fd);
 	}
 	close(fd);
-	img->max_x = max_x;
-	img->max_y = max_y;
+	img->width = width;
+	img->height = height;
 }
 
-void	ft_write_error(char *error_msg)
-{
-	write(2, error_msg, ft_strlen(error_msg));
-}
-
-/* Frees nested allocations in a double pointer */
-void	ft_double_ptr_free(void **ptr, int pos, int reverse)
+/* Free memory from a bidimensional array. */
+void	ft_2D_array_free(void **array, int pos, int reverse)
 {
 	if (reverse == TRUE)
 		while (--pos >= 0)
-			free(ptr[pos]);
+			free(array[pos]);
 	else
-		while (ptr[pos])
-			free(ptr[pos++]);
-	free(ptr);
+		while (array[pos])
+			free(array[pos++]);
+	free(array);
+}
+
+void	ft_error_write(char *error_msg)
+{
+	write(2, error_msg, ft_strlen(error_msg));
 }

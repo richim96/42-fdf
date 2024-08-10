@@ -26,7 +26,7 @@ static int	ft_file_is_valid(char *map)
 	}
 	if (!*map && !*ext)
 		return (1);
-	ft_write_error("[ERROR]: Invalid file type - extension must be .fdf\n");
+	ft_error_write("[ERROR]: Invalid file type - extension must be .fdf\n");
 	return (0);
 }
 
@@ -48,7 +48,7 @@ static int	ft_map_is_valid(char *map)
 	close(fd);
 	if (bytes_read == 0)
 	{
-		ft_write_error("[ERROR]: Empty map\n");
+		ft_error_write("[ERROR]: Empty map\n");
 		return (0);
 	}
 	return (1);
@@ -60,7 +60,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		ft_write_error("[ERROR]: Invalid map argument\n");
+		ft_error_write("[ERROR]: Invalid map argument\n");
 		return (1);
 	}
 	map = argv[1];

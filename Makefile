@@ -11,14 +11,15 @@
 # **************************************************************************** #
 
 #### -- VARIABLES -- ####
-SRC = draw.c main.c mlx_events.c transform.c utils.c vectors.c
+SRC = main.c \
+		draw.c mlx_events.c transform.c utils.c vectors.c
 SRC := $(addprefix src/, $(SRC))
 OBJS = $(SRC:%.c=%.o)
 LIBFT = lib/libft
 MINILIBX = lib/minilibx
 NAME = fdf
 
-CPPFLAGS = -I. -I./include
+CPPFLAGS = -I./include
 CFLAGS = -Wall -Werror -Wextra -g 
 LDFLAGS = -lm -L./$(LIBFT) -lft -L./$(MINILIBX) -lmlx -framework OpenGL -framework AppKit
 
