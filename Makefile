@@ -12,7 +12,7 @@
 
 #### -- VARIABLES -- ####
 SRC = main.c \
-		draw.c mlx_events.c transform.c utils.c vectors.c
+		draw.c events.c transform.c utils.c vectors.c
 SRC := $(addprefix src/, $(SRC))
 OBJS = $(SRC:%.c=%.o)
 LIBFT = lib/libft

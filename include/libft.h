@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmei <rmei@student.42berlin.de>            +#+  +:+       +#+        */
+/*   By: rmei <rmei@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:45:52 by rmei              #+#    #+#             */
-/*   Updated: 2024/07/17 18:56:41 by rmei             ###   ########.fr       */
+/*   Updated: 2024/08/10 13:28:09 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-/* Macros */ 
+/* ----- MACROS ----- */ 
+
 # define MAX_PFD 1024
 # define LINE_SIZE 128
 
@@ -26,7 +27,8 @@
 #  define BUFFER_SIZE 1024
 # endif
 
-/* Structures */
+/* ----- STRUCTURES ----- */
+
 typedef struct s_list
 {
 	void			*content;
@@ -47,7 +49,8 @@ typedef struct s_line
 	int		i;
 }	t_line;
 
-/* Libc functions */
+/* ----- LIB FUNCTIONS ----- */
+
 int		ft_atoi(const char *nptr);
 int		ft_haschar(char *s, char c);
 int		ft_isalpha(int c);
@@ -88,7 +91,8 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlen(const char *s);
 
-/* Linked list functions */
+/* ----- LINKED LIST FUNCTIONS ----- */
+
 int		ft_lstsize(t_list *lst);
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstdelone(t_list *node, void (*del)(void *));

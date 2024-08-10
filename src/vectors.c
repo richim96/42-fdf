@@ -13,7 +13,7 @@
 #include "fdf.h"
 
 /* Unpack the z-point info provided by the map (value and color). */
-static void	ft_z_info_unpack(t_vector_3d *vec, char *z_info)
+static void	ft_z_info_unpack(t_vec_3D *vec, char *z_info)
 {
 	char	**z_value_color;
 
@@ -34,11 +34,11 @@ static void	ft_z_info_unpack(t_vector_3d *vec, char *z_info)
 }
 
 /* Create a 3D vector, extracting the relevant coordinate data. */
-static t_vector_3d	*ft_vector_make(char *z_info, int x, int y)
+static t_vec_3D	*ft_vector_make(char *z_info, int x, int y)
 {
-	t_vector_3d	*vec;
+	t_vec_3D	*vec;
 
-	vec = malloc(sizeof(t_vector_3d));
+	vec = malloc(sizeof(t_vec_3D));
 	if (!vec)
 		return (NULL);
 	vec->x = x;
@@ -48,7 +48,7 @@ static t_vector_3d	*ft_vector_make(char *z_info, int x, int y)
 }
 
 /* Add a 3D vector to the existing vector array. */
-static t_vector_3d	**ft_vector_add(t_vector_3d **vecs, char *vec, int y)
+static t_vec_3D	**ft_vector_add(t_vec_3D **vecs, char *vec, int y)
 {
 	int			x;
 	static int	j;
@@ -74,16 +74,16 @@ static t_vector_3d	**ft_vector_add(t_vector_3d **vecs, char *vec, int y)
 }
 
 /* Create the 3D vector array from which to draw the image to screen. */
-t_vector_3d	**ft_vectors_make(t_img *img, char *map)
+t_vec_3D	**ft_vectors_make(t_img *img, char *map)
 {
 	int			y;
 	int			fd;
 	char		*line;
-	t_vector_3d	**vecs;
+	t_vec_3D	**vecs;
 
 	fd = open(map, O_RDONLY);
 	line = ft_get_next_line(fd);
-	vecs = ft_calloc((img->width * img->height) + 1, sizeof(t_vector_3d *));
+	vecs = ft_calloc((img->width * img->height) + 1, sizeof(t_vec_3D *));
 	if (!vecs)
 		free(line);
 	else
