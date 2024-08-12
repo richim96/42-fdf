@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:24:40 by rmei              #+#    #+#             */
-/*   Updated: 2024/08/10 13:55:49 by rmei             ###   ########.fr       */
+/*   Updated: 2024/08/12 14:09:39 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void ft_iso_transform(t_vec_3D **vecs, int width, int height);
 int		ft_hextoi(char *hex);
 void	ft_map_size_get(t_img *img, char *map);
 void	ft_error_write(char *error_msg);
-void	ft_2D_array_free(void **ptr, int pos, int reverse);
+void	ft_nested_array_free(void **ptr, int pos, int reverse);
 
 /* events.c */
 

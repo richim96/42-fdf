@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 13:21:27 by rmei              #+#    #+#             */
-/*   Updated: 2024/08/10 15:47:13 by rmei             ###   ########.fr       */
+/*   Updated: 2024/08/12 12:34:44 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,6 @@ typedef struct s_vec_3D
 	int	z;
 	int color;
 }	t_vec_3D;
-
-/* DDA line tuning parameters. */
-typedef struct s_dda_line
-{
-    int delta_x;
-    int delta_y;
-    int steps;
-    float step_x;
-    float step_y;
-}   t_dda_line;
 
 /* X11 image details. */
 typedef struct s_img

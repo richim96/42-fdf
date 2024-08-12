@@ -61,8 +61,8 @@ static t_vec_3D	**ft_vector_add(t_vec_3D **vecs, char *vec, int y)
 		vecs[j] = ft_vector_make(z_data[x], x, y);
 		if (!vecs[j])
 		{
-			ft_2D_array_free((void **)vecs, j, TRUE);
-			ft_2D_array_free((void **)z_data, x, FALSE);
+			ft_nested_array_free((void **)vecs, j, TRUE);
+			ft_nested_array_free((void **)z_data, x, FALSE);
 			return (NULL);
 		}
 		free(z_data[x]);

@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 12:32:45 by rmei              #+#    #+#             */
-/*   Updated: 2024/08/07 18:42:15 by rmei             ###   ########.fr       */
+/*   Updated: 2024/08/12 14:09:47 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_map_size_get(t_img *img, char *map)
 }
 
 /* Free memory from a bidimensional array. */
-void	ft_2D_array_free(void **array, int pos, int reverse)
+void	ft_nested_array_free(void **array, int pos, int reverse)
 {
 	if (reverse == TRUE)
 		while (--pos >= 0)
