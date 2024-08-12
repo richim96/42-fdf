@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:27:12 by rmei              #+#    #+#             */
-/*   Updated: 2024/08/10 14:17:47 by rmei             ###   ########.fr       */
+/*   Updated: 2024/08/12 20:48:54 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	ft_screen_init(char *map)
 			screen.mlx_ptr, W_WIDTH, W_HEIGHT, map);
 	img.img_ptr = mlx_new_image(screen.mlx_ptr, W_WIDTH, W_HEIGHT);
 	img.img_addr = mlx_get_data_addr(
-			img.img_ptr, &img.bits_per_pixel, &img.size_line, &img.endian);
+			img.img_ptr, &img.bits_pixel, &img.size_line, &img.endian);
 	ft_map_size_get(&img, map);
 	screen.img = &img;
 	screen.vecs = ft_vectors_make(screen.img, map);

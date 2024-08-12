@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 12:24:05 by rmei              #+#    #+#             */
-/*   Updated: 2024/08/12 15:34:58 by rmei             ###   ########.fr       */
+/*   Updated: 2024/08/12 21:20:24 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 // X11 image.
 # define IX_POS 0.10
 // X11 image.
-# define IY_POS 0.10
+# define IY_POS 0.03
 
 // Render details.
 # define BG_COLOR "0xFFFF00"
