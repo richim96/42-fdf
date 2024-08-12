@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 14:14:12 by rmei              #+#    #+#             */
-/*   Updated: 2024/08/12 15:57:11 by rmei             ###   ########.fr       */
+/*   Updated: 2024/08/12 18:53:03 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ static void	ft_mlx_pxl_draw(t_img *img, int x, int y, unsigned int color)
 }
 
 /* Apply DDA line drawing algorithm on the x-axis. */
-static void	ft_dda_x_draw(t_img *img, t_vec_3D **vecs, int pos, int next)
+void	ft_dda_x_draw(t_img *img, t_vec_3D **vecs, int pos, int next)
 {
+	int		color;
 	int		x;
 	int		y;
 	float	slope;
-	int		color;
 
 	if (vecs[pos]->z != 0)
 		color = vecs[pos]->color;
@@ -44,19 +44,19 @@ static void	ft_dda_x_draw(t_img *img, t_vec_3D **vecs, int pos, int next)
 	x = vecs[pos]->x;
 	while (x <= vecs[pos + next]->x)
 	{
-		y = vecs[pos]->y + slope * (x - vecs[pos]->x);
+		y = round(vecs[pos]->y + slope * (x - vecs[pos]->x));
 		ft_mlx_pxl_draw(img, x, y, color);
 		x++;
 	}
 }
 
 /* Apply DDA line drawing algorithm on the y-axis. */
-static void	ft_dda_y_draw(t_img *img, t_vec_3D **vecs, int pos, int next)
+void	ft_dda_y_draw(t_img *img, t_vec_3D **vecs, int pos, int next)
 {
-	int		x;
-	int		y;
-	float	slope;
 	int		color;
+	int		y;
+	int		x;
+	float	slope;
 
 	if (vecs[pos]->z != 0)
 		color = vecs[pos]->color;
@@ -69,7 +69,7 @@ static void	ft_dda_y_draw(t_img *img, t_vec_3D **vecs, int pos, int next)
 	y = vecs[pos]->y;
 	while (y <= vecs[pos + next]->y)
 	{
-		x = vecs[pos]->x + slope * (y - vecs[pos]->y);
+		x = round(vecs[pos]->x + slope * (y - vecs[pos]->y));
 		ft_mlx_pxl_draw(img, x, y, color);
 		y++;
 	}
@@ -89,7 +89,7 @@ void	ft_map_draw(t_screen *screen)
 	while (screen->vecs[pos + next_row + 1])
 	{
 		ft_dda_x_draw(screen->img, screen->vecs, pos, next_col);
-		ft_dda_y_draw(screen->img, screen->vecs, pos, next_row);
+		//ft_dda_y_draw(screen->img, screen->vecs, pos, next_row);
 		if (pos % 25 == 0)
 			mlx_put_image_to_window(
 				screen->mlx_ptr, screen->win_ptr, screen->img->img_ptr,
