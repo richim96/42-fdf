@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 12:32:45 by rmei              #+#    #+#             */
-/*   Updated: 2024/08/12 14:09:47 by rmei             ###   ########.fr       */
+/*   Updated: 2024/08/16 12:16:48 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_hextoi(char *hex)
 }
 
 /* Compute the size of the map. */
-void	ft_map_size_get(t_img *img, char *map)
+void	ft_map_size_set(t_img *img, char *map)
 {
 	int		fd;
 	int		width;
@@ -65,18 +65,44 @@ void	ft_map_size_get(t_img *img, char *map)
 }
 
 /* Free memory from a bidimensional array. */
-void	ft_nested_array_free(void **array, int pos, int reverse)
+void	ft_nested_arr_free(void **arr, int pos, int reverse)
 {
 	if (reverse == TRUE)
 		while (--pos >= 0)
-			free(array[pos]);
+			free(arr[pos]);
 	else
-		while (array[pos])
-			free(array[pos++]);
-	free(array);
+		while (arr[pos])
+			free(arr[pos++]);
+	free(arr);
 }
 
 void	ft_error_write(char *error_msg)
 {
 	write(2, error_msg, ft_strlen(error_msg));
+}
+
+/* Get the min and max (X, Y) values from a 1D matrix. */
+void	ft_vec_limits_set(t_limits *limits, t_vec_3D **vecs)
+{
+	int			i;
+	t_vec_3D	*v;
+
+	i = 0;
+	limits->min_x = 0;
+	limits->max_x = 0;
+	limits->min_y = 0;
+	limits->max_y = 0;
+	while (vecs[i])
+	{
+		v = vecs[i];
+		if (v->x < limits->min_x)
+			limits->min_x = v->x;
+		if (v->x > limits->max_x)
+			limits->max_x = v->x;
+		if (v->y < limits->min_y)
+			limits->min_y = v->y;
+		if (v->y > limits->max_y)
+			limits->max_y = v->y;
+		i++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 14:14:12 by rmei              #+#    #+#             */
-/*   Updated: 2024/08/13 16:54:55 by rmei             ###   ########.fr       */
+/*   Updated: 2024/08/16 12:37:36 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static void	ft_bres_line_set(t_bres_line *line, t_vec_3D *vec1, t_vec_3D *vec2)
 {
 	line->x = vec1->x;
 	line->y = vec1->y;
-	line->dx = abs(vec2->x - vec1->x);
-	line->dy = -abs(vec2->y - vec1->y);
+	line->dx = abs((int)vec2->x - (int)vec1->x);
+	line->dy = -abs((int)vec2->y - (int)vec1->y);
 	line->sx = 1;
 	if (vec2->x < vec1->x)
 		line->sx = -1;
@@ -49,9 +49,11 @@ static void	ft_bres_line_draw(t_img *img, t_vec_3D *vec1, t_vec_3D *vec2)
 	t_bres_line	line;
 
 	ft_bres_line_set(&line, vec1, vec2);
-	while (!(line.x == vec2->x && line.y == vec2->y))
+	while (TRUE)
 	{
 		ft_mlx_pxl_draw(img, line.x, line.y, line.color);
+		if (line.x == vec2->x && line.y == vec2->y)
+			break ;
 		line.e2 = line.e * 2;
 		if (line.e2 > line.dy)
 		{
@@ -76,7 +78,7 @@ void	ft_map_draw(t_screen *screen)
 	pos = 0;
 	row_len = screen->img->width;
 	row_limit = row_len * (screen->img->height - 1);
-	ft_iso_transform(screen->vecs, screen->img->width, screen->img->height);
+	ft_iso_transform(screen->vecs);
 	while (screen->vecs[pos + 1])
 	{
 		if ((pos + 1) % row_len != 0)
@@ -85,7 +87,7 @@ void	ft_map_draw(t_screen *screen)
 		if (pos < row_limit)
 			ft_bres_line_draw(
 				screen->img, screen->vecs[pos], screen->vecs[pos + row_len]);
-		if (pos % 25 == 0)
+		if (pos % 15 == 0)
 			mlx_put_image_to_window(
 				screen->mlx_ptr, screen->win_ptr, screen->img->img_ptr,
 				W_WIDTH * IX_POS, W_HEIGHT * IY_POS);

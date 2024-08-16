@@ -6,26 +6,28 @@
 /*   By: rmei <rmei@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 12:24:05 by rmei              #+#    #+#             */
-/*   Updated: 2024/08/12 21:20:24 by rmei             ###   ########.fr       */
+/*   Updated: 2024/08/16 12:28:22 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MACROS_H
 # define MACROS_H
 
-// X11 screen.
+// X11 screen width.
 # define W_WIDTH 1280
-// X11 screen.
+// X11 screen height.
 # define W_HEIGHT 720
 
-// X11 image.
-# define I_WIDTH 1024
-// X11 image.
-# define I_HEIGHT 576
-// X11 image.
+// X11 image width.
+# define I_WIDTH 1000
+// X11 image height.
+# define I_HEIGHT 650
+// X11 image x-axis position.
 # define IX_POS 0.10
-// X11 image.
-# define IY_POS 0.03
+// X11 image y-axis position.
+# define IY_POS 0.05
+// X11 image rotation angle.
+# define ALPHA 45
 
 // Render details.
 # define BG_COLOR "0xFFFF00"

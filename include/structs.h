@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 13:21:27 by rmei              #+#    #+#             */
-/*   Updated: 2024/08/13 16:56:19 by rmei             ###   ########.fr       */
+/*   Updated: 2024/08/16 12:36:09 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,22 @@ typedef struct s_bres_line
 	int	color;
 }	t_bres_line;
 
+/* Smallest and largest coordinate points of a matrix. */
+typedef struct s_limits
+{
+	float	min_x;
+	float	max_x;
+	float	min_y;
+	float	max_y;
+}	t_limits;
+
 /* 3D vector data. */
 typedef struct s_vec_3D
 {
-	int	x;
-	int	y;
-	int	z;
-	int	color;
+	float	x;
+	float	y;
+	int		z;
+	int		color;
 }	t_vec_3D;
 
 /* X11 image details. */

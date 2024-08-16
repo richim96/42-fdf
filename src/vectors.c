@@ -61,8 +61,8 @@ static t_vec_3D	**ft_vector_add(t_vec_3D **vecs, char *vec, int y)
 		vecs[j] = ft_vector_make(z_data[x], x, y);
 		if (!vecs[j])
 		{
-			ft_nested_array_free((void **)vecs, j, TRUE);
-			ft_nested_array_free((void **)z_data, x, FALSE);
+			ft_nested_arr_free((void **)vecs, j, TRUE);
+			ft_nested_arr_free((void **)z_data, x, FALSE);
 			return (NULL);
 		}
 		free(z_data[x]);
@@ -83,7 +83,7 @@ t_vec_3D	**ft_vectors_make(t_img *img, char *map)
 
 	fd = open(map, O_RDONLY);
 	line = ft_get_next_line(fd);
-	vecs = ft_calloc((img->width * img->height) + 1, sizeof(t_vec_3D *));
+	vecs = ft_calloc((img->width * img->height) + 2, sizeof(t_vec_3D *));
 	if (!vecs)
 		free(line);
 	else
