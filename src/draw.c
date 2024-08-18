@@ -25,6 +25,7 @@ static void	ft_mlx_pxl_draw(t_img *img, int x, int y, unsigned int color)
 	*(unsigned int *)pxl_color = color;
 }
 
+/* Sets data for the current line to draw. */
 static void	ft_bres_line_set(t_bres_line *line, t_vec_3D *vec1, t_vec_3D *vec2)
 {
 	line->x = vec1->x;
@@ -43,7 +44,7 @@ static void	ft_bres_line_set(t_bres_line *line, t_vec_3D *vec1, t_vec_3D *vec2)
 		line->color = vec2->color;
 }
 
-/* Draws a line from point A to point B using the DDA algorithm. */
+/* Draws a line from point A to point B using the Bresenham line algorithm. */
 static void	ft_bres_line_draw(t_img *img, t_vec_3D *vec1, t_vec_3D *vec2)
 {
 	t_bres_line	line;
