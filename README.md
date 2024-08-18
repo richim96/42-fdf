@@ -4,7 +4,7 @@ It leverages 42's graphical library [minilibx](https://github.com/42Paris/minili
 
 
 ### Install and run
-This program only runs on MacOS, due to the `minlibx` OS-specific dependency attached. To work correctly, it also requires OpenGL: if you don't have it yet, please install it.
+This program only runs on MacOS, due to the `minilibx` OS-specific dependency attached. To work correctly, it also requires OpenGL: if you don't have it yet, please install it.
 
 ```bash
 brew install opengl
