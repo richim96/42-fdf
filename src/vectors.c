@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vecs.c                                          :+:      :+:    :+:   */
+/*   vectors.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmei <rmei@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:11:39 by rmei              #+#    #+#             */
-/*   Updated: 2024/08/07 20:07:28 by rmei             ###   ########.fr       */
+/*   Updated: 2024/08/18 11:35:27 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ static void	ft_z_info_unpack(t_vec_3D *vec, char *z_info)
 		vec->color = ft_hextoi(z_value_color[1]);
 	else
 	{
-		if (vec->z != 0)
+		if (vec->z > 0)
 			vec->color = ft_hextoi(PXL_WHITE);
+		else if (vec->z < 0)
+			vec->color = ft_hextoi(PXL_PINK);
 		else
 			vec->color = ft_hextoi(BG_COLOR);
 	}

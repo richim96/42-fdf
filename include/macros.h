@@ -6,7 +6,7 @@
 /*   By: rmei <rmei@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 12:24:05 by rmei              #+#    #+#             */
-/*   Updated: 2024/08/16 12:28:22 by rmei             ###   ########.fr       */
+/*   Updated: 2024/08/18 11:40:54 by rmei             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 # define BG_COLOR "0xFFFF00"
 // Render details.
 # define PXL_WHITE "0xFFFFFF"
+// Render details.
+# define PXL_PINK "0xFFAD1457"
 
 // X11 events.
 # define ON_DESTROY 17
